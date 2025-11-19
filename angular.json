@@ -24,8 +24,18 @@
                 "input": "public"
               }
             ],
+            "scripts": [
+              "public/js/bootstrap.min.js",
+              "public/js/custom.js",
+              "public/js/jquery.js",
+              "public/js/jquery.singlePageNav.min.js",
+              "public/js/wow.min.js"
+            ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "public/css/animate.min.css",
+              "public/css/bootstrap.min.css",
+              "public/css/templatemo-style.css"
             ]
           },
           "configurations": {

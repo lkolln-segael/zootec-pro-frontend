@@ -1,0 +1,56 @@
+/* not-found.component.css */
+.not-found-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding-top: 70px;
+}
+
+.error-icon {
+  font-size: 100px;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.error-code {
+  font-size: 150px;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1;
+}
+
+.error-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 20px 0;
+  text-transform: uppercase;
+}
+
+.error-message {
+  font-size: 18px;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.btn-group-custom {
+  margin-top: 20px;
+}
+
+.btn-group-custom .btn {
+  margin: 5px;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
