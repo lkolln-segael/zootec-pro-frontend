@@ -1,0 +1,17 @@
+<div class="chart-container container">
+  <div class="row me-3">
+    <div class="col-6 d-flex justify-content-end mb-3">
+      <select class="form-select w-auto me-3" aria-label="Seleccionar período">
+        <option selected>Todos los meses</option>
+        @for(label of labels();track label){
+        <option [value]="label">{{label}}</option>
+        }
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <canvas [id]="id()"></canvas>
+    </div>
+  </div>
+</div>

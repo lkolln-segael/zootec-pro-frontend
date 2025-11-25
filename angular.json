@@ -25,11 +25,10 @@
               }
             ],
             "scripts": [
-              "public/js/bootstrap.min.js",
-              "public/js/custom.js",
               "public/js/jquery.js",
-              "public/js/jquery.singlePageNav.min.js",
-              "public/js/wow.min.js"
+              "public/js/bootstrap.min.js",
+              "public/js/wow.min.js",
+              "public/js/jquery.singlePageNav.min.js"
             ],
             "styles": [
               "src/styles.css",

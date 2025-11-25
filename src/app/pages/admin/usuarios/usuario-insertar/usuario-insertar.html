@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="form-container">
+      <h2 class="form-title">
+          <i class="bi bi-person-plus-fill"></i> Crear Nuevo Usuario
+      </h2>
+
+      <form id="formUsuario" method="POST" action="">
+          <!-- Campo Nombre -->
+          <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre Completo</label>
+              <input
+                  type="text"
+                  class="form-control"
+                  id="nombre"
+                  name="nombre"
+                  placeholder="Ingrese el nombre completo"
+                  required
+              >
+              <div class="invalid-feedback">
+                  Por favor ingrese el nombre.
+              </div>
+          </div>
+
+          <!-- Campo Nombre de Usuario -->
+          <div class="mb-3">
+              <label for="nombreUsuario" class="form-label">Nombre de Usuario</label>
+              <input
+                  type="text"
+                  class="form-control"
+                  id="nombreUsuario"
+                  name="nombreUsuario"
+                  placeholder="Ingrese el nombre de usuario"
+                  required
+                  minlength="4"
+              >
+              <div class="invalid-feedback">
+                  El nombre de usuario debe tener al menos 4 caracteres.
+              </div>
+          </div>
+
+          <!-- Campo Contraseña -->
+          <div class="mb-3">
+              <label for="contrasena" class="form-label">Contraseña</label>
+              <input
+                  type="password"
+                  class="form-control"
+                  id="contrasena"
+                  name="contrasena"
+                  placeholder="Ingrese la contraseña"
+                  required
+                  minlength="6"
+              >
+              <div class="invalid-feedback">
+                  La contraseña debe tener al menos 6 caracteres.
+              </div>
+          </div>
+
+          <div class="mb-4">
+              <label for="rol" class="form-label">Rol</label>
+              <select class="form-select" id="rol" name="rol" required>
+                  <option value="">Seleccione un rol</option>
+                  <option value="administrador">Administrador</option>
+                  <option value="veterinario" selected>Veterinario</option>
+                  <option value="operario">Operario</option>
+              </select>
+              <div class="invalid-feedback">
+                  Por favor seleccione un rol.
+              </div>
+          </div>
+
+          <!-- Botones -->
+          <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">
+                  Crear Usuario
+              </button>
+              <button type="reset" class="btn btn-outline-secondary">
+                  Limpiar Formulario
+              </button>
+          </div>
+      </form>
+  </div>
+</div>

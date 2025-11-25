@@ -1,0 +1,19 @@
+<div id="sidebar-container">
+  <div class="sidebar-header">
+    <i class="logo fa-solid fa-cow"></i>
+    <h1>ZooTec Pro</h1>
+  </div>
+
+  <nav class="sidebar-nav">
+    @for(nav of navigation(); track nav.title){
+      <div class="section">
+      <h4>{{ nav.title }}</h4>
+      @for(subtitle of nav.sublinks; track subtitle.nombre){
+        <a [routerLink]="subtitle.url" class="nav-link">
+        <i [class]="'nav-icon '+icon(subtitle.icon)"></i> {{ subtitle.nombre }}
+        </a>
+      }
+      </div>
+    }
+  </nav>
+</div>

@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 col-lg-4 col-md-4 col-xl-4">
+      <app-card-component [title]="'Crias'"
+        [color]="Color.GREEN"
+        [descripcion]="'15'"
+        [comparacion]="'+20% con respecto al mes anterior'"/>
+    </div>
+    <div class="col-sm-8 col-lg-8 col-md-8 col-xl-8">
+      <app-filtros-dashboard />
+    </div>
+  </div>
+  <div class="row">
+    <app-bar-chart-component [titulo]="'Numero de crias'" [valores]="[0,5,3,6,7]"/>
+  </div>
+  <div class="row">
+    <app-circle-chart-component [titulo]="'Informacion Alimenticia'" [valores]="[30,40,50]"
+    [labels]="['Proteinas','Carbohidratos','Soja']"/>
+  </div>
+  <div class="row">
+    <div class="col-sm-8 col-xl-8 col-md-8 col-lg-8">
+      <app-bar-chart-component [titulo]="'Cantidad de alimentos'" [valores]="[30,40,50,60]" [horizontal]="true" />
+    </div>
+    <div class="col-sm-4 col-xl-4 col-md-4 col-lg-4" style="margin-top: 2em;">
+      <app-card-component [title]="'Costo Total en alimentacion'"
+        [descripcion]="'S/. 15000'"
+        [comparacion]="'-50% con respecto al mes anterior'"
+        [color]="Color.RED"/>
+    </div>
+  </div>
+</div>

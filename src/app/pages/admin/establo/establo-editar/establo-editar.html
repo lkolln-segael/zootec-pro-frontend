@@ -1,0 +1,220 @@
+<div class="container">
+  <div class="form-container">
+      <h2 class="form-title">
+          🏡 Editar Establo
+      </h2>
+
+      <!-- Badge con ID del establo -->
+      <div class="establo-id-badge">
+          <strong>ID del Establo:</strong> <span id="displayEstabloId">EST-001</span>
+      </div>
+
+      <form id="formEditarEstablo" method="POST" action="">
+          <!-- Campo oculto para ID -->
+          <input type="hidden" id="establoId" name="establoId" value="EST-001">
+
+          <!-- Información General -->
+          <h5 class="section-title">📋 Información General</h5>
+
+          <!-- Campo Nombre -->
+          <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre del Establo</label>
+              <input
+                  type="text"
+                  class="form-control"
+                  id="nombre"
+                  name="nombre"
+                  placeholder="Ingrese el nombre del establo"
+                  value="Establo La Pradera"
+                  required
+              >
+              <div class="invalid-feedback">
+                  Por favor ingrese el nombre del establo.
+              </div>
+          </div>
+
+          <!-- Campo Sistema de Producción -->
+          <div class="mb-3">
+              <label for="sistemaProduccion" class="form-label">Sistema de Producción</label>
+              <select class="form-select" id="sistemaProduccion" name="sistemaProduccion" required>
+                  <option value="">Seleccione un sistema</option>
+                  <option value="intensivo" selected>Intensivo</option>
+                  <option value="extensivo">Extensivo</option>
+                  <option value="semi-intensivo">Semi-Intensivo</option>
+                  <option value="organico">Orgánico</option>
+                  <option value="pastoreo-rotacional">Pastoreo Rotacional</option>
+              </select>
+              <div class="invalid-feedback">
+                  Por favor seleccione un sistema de producción.
+              </div>
+          </div>
+
+          <!-- Campo Capacidad Máxima -->
+          <div class="mb-3">
+              <label for="capacidadMaxima" class="form-label">Capacidad Máxima</label>
+              <div class="input-group">
+                  <input
+                      type="number"
+                      class="form-control"
+                      id="capacidadMaxima"
+                      name="capacidadMaxima"
+                      placeholder="Número de animales"
+                      value="150"
+                      min="1"
+                      required
+                  >
+                  <span class="input-group-text">animales</span>
+              </div>
+              <div class="invalid-feedback">
+                  Por favor ingrese la capacidad máxima.
+              </div>
+          </div>
+
+          <!-- Información de Áreas -->
+          <h5 class="section-title">📏 Áreas del Establo</h5>
+
+          <!-- Campo Área Total -->
+          <div class="mb-3">
+              <label for="areaTotal" class="form-label">Área Total</label>
+              <div class="input-group">
+                  <input
+                      type="number"
+                      class="form-control"
+                      id="areaTotal"
+                      name="areaTotal"
+                      placeholder="Área total del establo"
+                      value="5000"
+                      min="0"
+                      step="0.01"
+                      required
+                  >
+                  <span class="input-group-text">m²</span>
+              </div>
+              <div class="invalid-feedback">
+                  Por favor ingrese el área total.
+              </div>
+          </div>
+
+          <!-- Campo Área de Pasto -->
+          <div class="mb-3">
+              <label for="areaPasto" class="form-label">Área de Pasto</label>
+              <div class="input-group">
+                  <input
+                      type="number"
+                      class="form-control"
+                      id="areaPasto"
+                      name="areaPasto"
+                      placeholder="Área destinada a pasto"
+                      value="2500"
+                      min="0"
+                      step="0.01"
+                  >
+                  <span class="input-group-text">m²</span>
+              </div>
+          </div>
+
+          <!-- Campo Área de Bosque -->
+          <div class="mb-3">
+              <label for="areaBosque" class="form-label">Área de Bosque</label>
+              <div class="input-group">
+                  <input
+                      type="number"
+                      class="form-control"
+                      id="areaBosque"
+                      name="areaBosque"
+                      placeholder="Área de bosque"
+                      value="1000"
+                      min="0"
+                      step="0.01"
+                  >
+                  <span class="input-group-text">m²</span>
+              </div>
+          </div>
+
+          <!-- Campo Área de Cultivos -->
+          <div class="mb-3">
+              <label for="areaCultivos" class="form-label">Área de Cultivos</label>
+              <div class="input-group">
+                  <input
+                      type="number"
+                      class="form-control"
+                      id="areaCultivos"
+                      name="areaCultivos"
+                      placeholder="Área destinada a cultivos"
+                      value="800"
+                      min="0"
+                      step="0.01"
+                  >
+                  <span class="input-group-text">m²</span>
+              </div>
+          </div>
+
+          <!-- Campo Área Construida -->
+          <div class="mb-3">
+              <label for="areaConstruida" class="form-label">Área Construida</label>
+              <div class="input-group">
+                  <input
+                      type="number"
+                      class="form-control"
+                      id="areaConstruida"
+                      name="areaConstruida"
+                      placeholder="Área de construcciones"
+                      value="700"
+                      min="0"
+                      step="0.01"
+                  >
+                  <span class="input-group-text">m²</span>
+              </div>
+          </div>
+
+          <!-- Campo Ubicación -->
+          <div class="mb-4">
+              <label for="ubicacion" class="form-label">Ubicación</label>
+              <textarea
+                  class="form-control"
+                  id="ubicacion"
+                  name="ubicacion"
+                  rows="3"
+                  placeholder="Ingrese la dirección o coordenadas del establo"
+                  required
+              >Km 15 Vía Rural, Vereda El Pastizal, Municipio de Cartago, Valle del Cauca, Colombia</textarea>
+              <div class="invalid-feedback">
+                  Por favor ingrese la ubicación.
+              </div>
+          </div>
+
+          <!-- Botones -->
+          <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary btn-custom">
+                  💾 Guardar Cambios
+              </button>
+              <button type="button" class="btn btn-outline-secondary" onclick="window.history.back()">
+                  ↩️ Cancelar
+              </button>
+          </div>
+      </form>
+
+      <!-- Resumen de Distribución de Áreas -->
+      <div id="resumenAreas" class="mt-4 p-3" style="background-color: #f8f9fa; border-radius: 8px; display: none;">
+          <h6 class="text-center mb-3">📊 Distribución de Áreas</h6>
+          <div class="row text-center">
+              <div class="col-6 col-md-3 mb-2">
+                  <small class="text-muted">Pasto</small>
+                  <div id="porcentajePasto" class="fw-bold text-success">-</div>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                  <small class="text-muted">Bosque</small>
+                  <div id="porcentajeBosque" class="fw-bold text-success">-</div>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                  <small class="text-muted">Cultivos</small>
+                  <div id="porcentajeCultivos" class="fw-bold text-success">-</div>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                  <small class="text-muted">Construida</small>
+                  <div id="porcentajeConstruida" class="fw-bold text-success">-</div>
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>

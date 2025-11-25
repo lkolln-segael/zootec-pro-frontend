@@ -1,0 +1,30 @@
+<div class="chart-container container-fluid">
+  <div class="row me-3">
+    <div class="col-6 d-flex justify-content-end mb-3">
+      <select class="form-select w-auto me-3" aria-label="Seleccionar período">
+        <option selected>Todos los meses</option>
+        @for(mes of meses();track mes){
+        <option [value]="mes">{{mes}}</option>
+        }
+      </select>
+      <select class="form-select w-auto" aria-label="Seleccionar período">
+        <option selected>2025</option>
+      </select>
+    </div>
+    @if(items().length !== 0){
+    <div class="col-12 d-flex justify-content-end">
+      <select class="form-select w-auto" aria-label="Seleccionar período">
+        <option selected>Todos los animales</option>
+        @for(item of items(); track item){
+          <option [value]="item">{{ item }}</option>>
+        }
+      </select>
+    </div>
+    }
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <canvas [id]="id()"></canvas>
+    </div>
+  </div>
+</div>

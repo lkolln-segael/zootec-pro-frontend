@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <app-bar-chart-component [titulo]="'Proteina producida'"
+      [valores]="[50,60,70,80,90,10]"/>
+  </div>
+  <div class="row">
+    <app-bar-chart-component [titulo]="'Grasa producida'"
+      [valores]="[50,60,70,80,90,10]"/>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+      <app-card-component [title]="'Proteina porcentual promedio'"
+        [descripcion]="'3%'" [comparacion]="'+20% con respecto al mes anterior'"
+      />
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+      <app-card-component [title]="'Grasa porcentual promedio'"
+        [descripcion]="'2%'" [comparacion]="'0% con respecto al mes anterior'" />
+    </div>
+  </div>
+</div>

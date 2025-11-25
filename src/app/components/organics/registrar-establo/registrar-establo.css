@@ -1,0 +1,12 @@
+form {
+  padding: 30px;
+}
+
+form>* {
+  padding: 20px;
+}
+
+.submit-btn {
+  margin-top: 30px;
+  width: 100%;
+}

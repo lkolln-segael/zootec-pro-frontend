@@ -1,0 +1,14 @@
+<div id="main-container">
+  @if(hideSideBar()){
+  <aside class="sidebar">
+    <app-sidebar-component />
+  </aside>
+  }
+
+  <div class="main-area">
+    <app-navbar-component (isHidingSideBar)="handleSideBar($event)"/>
+    <main class="content">
+      <router-outlet />
+    </main>
+  </div>
+</div>
