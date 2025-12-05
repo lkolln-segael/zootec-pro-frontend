@@ -1,0 +1,72 @@
+<ng-content></ng-content>
+<div class="modal fade" [id]="id()" tabindex="-1" aria-labelledby="desarrolloModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="desarrolloModalLabel">Historial de Desarrollo</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <!-- @if block: Show message when there is no data -->
+        @if (desarrollos().length === 0) {
+          <div class="text-center py-4">
+            <i class="bi bi-clipboard-x text-muted fs-1"></i>
+            <p class="mt-2 text-muted">No hay registros de desarrollo disponibles</p>
+          </div>
+        }
+
+        <!-- @for block: Main table with development records -->
+        @if (desarrollos().length > 0) {
+          <div class="table-responsive">
+            <table class="table table-hover table-sm">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col" class="text-end">Peso (kg)</th>
+                  <th scope="col" class="text-end">Tamaño (cm)</th>
+                  <th scope="col">Condición Corporal</th>
+                  <th scope="col" class="text-end">U.A.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Loop through each 'desarrollo' item.
+                     The 'track' keyword is mandatory for performance[citation:7]. -->
+                @for (item of desarrollos(); track item.id; let i = $index) {
+                  <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item.fechaRegistro | date:'dd/MM/yyyy' }}</td>
+                    <td>
+                      <span class="text-end fw-semibold">
+                        {{ item.estado }}
+                      </span>
+                    </td>
+                    <td class="text-end fw-semibold">{{ item.pesoActual | number:'1.1-1' }}</td>
+                    <td class="text-end">{{ item["tamaño"]| number:'1.0-0' }}</td>
+                    <td>{{ item.condicionCorporal }}</td>
+                    <td class="text-end">{{ item.unidadesAnimal }}</td>
+                  </tr>
+                }
+                <!-- @empty block: Shown if the 'desarrollos' array is empty[citation:7] -->
+                @empty {
+                  <tr>
+                    <td colspan="7" class="text-center text-muted py-3">
+                      No se encontraron registros.
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

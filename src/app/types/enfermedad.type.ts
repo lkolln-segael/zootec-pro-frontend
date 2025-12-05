@@ -1,6 +1,7 @@
 import { TipoAnimal } from "./animal.type";
 
 export type TipoEnfermedad = {
+  id?: string;
   nombre: string;
   sintomas: Sintoma[],
   tratamientos: Tratamientos[],

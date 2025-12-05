@@ -26,3 +26,31 @@ export type AnimalForm = {
   observacionNacimiento: string;
   observacionParto: string
 }
+
+
+export type AnimalSimplified = Omit<AnimalForm, "observacionNacimiento" | "observacionParto" | "codigoAsociacion"> & { codigo: string }
+
+
+export type DesarrolloCrecimiento = {
+  id: string;
+  estado: string;
+  fechaRegistro: string;
+  pesoActual: number;
+  tamaño: number;
+  condicionCorporal: string;
+  unidadesAnimal: string;
+}
+
+export type Animal = {
+  id: string,
+  descripcion: string,
+  codigo: string,
+  identificadorElectronico: string;
+  proposito: string;
+  color: string;
+  fechaNacimiento: string,
+  observaciones: string;
+  genero: boolean
+  tipoAnimal: TipoAnimal
+  desarrollosCrecimiento: DesarrolloCrecimiento[]
+}

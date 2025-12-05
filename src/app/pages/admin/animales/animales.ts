@@ -1,22 +1,32 @@
-import { Component, signal } from '@angular/core';
+import { AnimalService } from '@/service/animal.service';
+import { Animal, AnimalForm } from '@/types/animal.type';
+import { Component, inject, signal } from '@angular/core';
+import { DesarrolloComponent } from "@/components/atomics/desarrollo-component/desarrollo-component";
 
 @Component({
   selector: 'app-animales',
-  imports: [],
+  imports: [DesarrolloComponent],
   templateUrl: './animales.html',
   styleUrl: './animales.css',
 })
 export class Animales {
   fields = signal([
-    "Nombre",
-    "Descripcion",
-    "Codigo",
-    "Codigo Ingreso",
-    "Codigo Salida",
-    "Identificador electronico",
-    "Proposito",
-    "Color",
-    "Fecha nacimiento"
-  ])
-    .asReadonly()
+    "ID", "descripcion", "codigo", "identificador electronico", "proposito", "color", "Fecha de nacimiento"
+    , "observaciones", "genero", "tipo de animal"
+  ]).asReadonly()
+
+
+  animales = signal([] as Animal[])
+
+  private animalService = inject(AnimalService)
+
+  ngOnInit() {
+    const establoId = localStorage.getItem("establoId")!
+    this.animalService.getAnimales(establoId)
+      .subscribe({
+        next: (res) => {
+          this.animales.set(res.data)
+        }
+      })
+  }
 }

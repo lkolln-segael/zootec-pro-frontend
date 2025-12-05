@@ -3,16 +3,58 @@
     <tr>
       <th scope="col">#</th>
       @for(field of fields();track $index){
-      <th scope="col">{{ field }}</th>
+      <th scope="col">{{ field.toUpperCase() }}</th>
       }
       <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
+    @for(animal of animales(); track animal.id){
     <tr>
       <th scope="col">
-        1
+          {{ $index + 1 }}
+      </th>
+      <th scope="col">
+          {{ animal.id }}
+      </th>
+      <th scope="col">
+          {{ animal.descripcion }}
+      </th>
+      <th scope="col">
+          {{ animal.codigo }}
+      </th>
+      <th scope="col">
+          {{ animal.identificadorElectronico}}
+      </th>
+      <th scope="col">
+          {{ animal.proposito }}
+      </th>
+      <th scope="col">
+          {{ animal.color }}
+      </th>
+      <th scope="col">
+          {{ animal.fechaNacimiento }}
+      </th>
+      <th scope="col">
+          {{ animal.observaciones }}
+      </th>
+      <th scope="col">
+          {{ animal.genero? "MACHO" : "HEMBRA" }}
+      </th>
+      <th scope="col">
+          {{ animal.tipoAnimal.nombre }}
+      </th>
+      <th scope="col">
+          <app-desarrollo-component [id]="animal.id + '-desarrollo'" [desarrollos]="animal.desarrollosCrecimiento">
+            <button class="btn btn-outline-success" [attr.data-bs-target]="'#'+animal.id + '-desarrollo'" data-bs-toggle="modal">
+              Ver desarrollo
+            </button>
+          </app-desarrollo-component>
+          <button class="btn btn-outline-danger ms-2">
+            Ver arbol genealogico
+          </button>
       </th>
     </tr>
+    }
   </tbody>
 </table>

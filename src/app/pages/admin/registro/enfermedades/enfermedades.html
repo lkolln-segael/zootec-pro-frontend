@@ -1,38 +1,169 @@
 <div class="container">
-  <div class="row">
-    <label class="form-label" for="animal">Tipo de animal</label>
-    <input type="text" class="form-control" id="animal">
-  </div>
-  <div class="row">
-    <label class="form-label" for="Enfermedad">Enfermedad</label>
-    <input type="text" class="form-control" id="enfermedad">
+  <!-- Búsqueda de Animal -->
+  <div class="row mb-3">
+    <label for="animales" class="form-label">Animales</label>
+    <app-search-autocomplete
+      [suggestions]="suggestions()"
+      placeholder="Búsqueda de animales"
+      (search)="onSearch($event)"/>
   </div>
 
-  <div class="row">
-    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-      <button class="btn btn-primary">
-        Agregar Tratamiento
-      </button>
-    </div>
-    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-      <button class="btn btn-primary">
-        Agregar Sintoma
-      </button>
-    </div>
+  <!-- Selección de Tipo de Enfermedad -->
+  <div class="row mb-3">
+    <label for="tipo-enfermedad" class="form-label">Tipo de enfermedad</label>
+    <select class="form-select" id="tipo-enfermedad"
+            [(ngModel)]="tipoEnfermedadSelectedId"
+            (ngModelChange)="onTipoEnfermedadChange()">
+      <option value="" selected>Seleccione una opción</option>
+      @for(tipo of tipoEnfermedades(); track tipo.id){
+        <option [value]="tipo.id">{{ tipo.nombre }}</option>
+      }
+    </select>
   </div>
-  <div class="row">
-    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-      <label class="form-label" for="Enfermedad">Tratamiento</label>
-      <input type="text" class="form-control" id="enfermedad">
+
+  <!-- Sección de Síntomas -->
+  @if(tipoEnfermedadSelected()){
+    <div class="card mb-3">
+      <div class="card-header bg-info text-white">
+        <h5 class="mb-0">Síntomas</h5>
+      </div>
+      <div class="card-body">
+
+        <!-- Lista de síntomas seleccionados -->
+        @if(sintomasSeleccionados().length > 0){
+          <div class="mb-3">
+            <h6>Síntomas seleccionados:</h6>
+            <div class="list-group">
+              @for(sintoma of sintomasSeleccionados(); track sintoma.id; let i = $index){
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>{{ sintoma.nombre }}</span>
+                  <button type="button" class="btn btn-sm btn-danger"
+                          (click)="eliminarSintoma(i)">
+                    <i class="bi bi-trash"></i> Eliminar
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Select para agregar nuevo síntoma -->
+        <div class="row g-2">
+          <div class="col-md-8">
+            <label for="sintoma" class="form-label">Agregar síntoma</label>
+            <select class="form-select" id="sintoma" [(ngModel)]="sintomaTemporalId">
+              <option value="" selected>Seleccione un síntoma</option>
+              @for(sintoma of sintomasDisponibles(); track sintoma.id){
+                <option [value]="sintoma.id">{{ sintoma.nombre }}</option>
+              }
+              @empty {
+                <option value="" disabled>No hay síntomas disponibles</option>
+              }
+            </select>
+          </div>
+          <div class="col-md-4 d-flex align-items-end">
+            <button type="button" class="btn btn-primary w-100"
+                    (click)="agregarSintoma()"
+                    [disabled]="!sintomaTemporalId()">
+              <i class="bi bi-plus-circle"></i> Agregar
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-      <label class="form-label" for="Enfermedad">Sintoma</label>
-      <input type="text" class="form-control" id="enfermedad">
+
+    <!-- Sección de Tratamientos -->
+    <div class="card mb-3">
+      <div class="card-header bg-success text-white">
+        <h5 class="mb-0">Tratamientos</h5>
+      </div>
+      <div class="card-body">
+
+        <!-- Lista de tratamientos seleccionados -->
+        @if(tratamientosSeleccionados().length > 0){
+          <div class="mb-3">
+            <h6>Tratamientos seleccionados:</h6>
+            <div class="list-group">
+              @for(tratamiento of tratamientosSeleccionados(); track tratamiento.id; let i = $index){
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>{{ tratamiento.nombre }}</span>
+                  <button type="button" class="btn btn-sm btn-danger"
+                          (click)="eliminarTratamiento(i)">
+                    <i class="bi bi-trash"></i> Eliminar
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Select para agregar nuevo tratamiento -->
+        <div class="row g-2">
+          <div class="col-md-8">
+            <label for="tratamiento" class="form-label">Agregar tratamiento</label>
+            <select class="form-select" id="tratamiento" [(ngModel)]="tratamientoTemporalId">
+              <option value="" selected>Seleccione un tratamiento</option>
+              @for(tratamiento of tratamientosDisponibles(); track tratamiento.id){
+                <option [value]="tratamiento.id">{{ tratamiento.nombre || 'Tratamiento ' + tratamiento.id }}</option>
+              }
+              @empty {
+                <option value="" disabled>No hay tratamientos disponibles</option>
+              }
+            </select>
+          </div>
+          <div class="col-md-4 d-flex align-items-end">
+            <button type="button" class="btn btn-primary w-100"
+                    (click)="agregarTratamiento()"
+                    [disabled]="!tratamientoTemporalId()">
+              <i class="bi bi-plus-circle"></i> Agregar
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <button class="btn btn-success">
-      Registrar enfermedad
-    </button>
-  </div>
+
+    <!-- Botón para registrar la enfermedad -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <button class="btn btn-success w-100 btn-lg"
+                (click)="registrarEnfermedad()"
+                [disabled]="sintomasSeleccionados().length === 0 || tratamientosSeleccionados().length === 0">
+          <i class="bi bi-check-circle"></i> Registrar Enfermedad
+        </button>
+      </div>
+    </div>
+
+    <!-- Resumen antes de registrar -->
+    <div class="card border-primary">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Resumen</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h6>Síntomas ({{ sintomasSeleccionados().length }}):</h6>
+            <ul class="list-unstyled">
+              @for(sintoma of sintomasSeleccionados(); track sintoma.id){
+                <li><i class="bi bi-check-circle text-success"></i> {{ sintoma.nombre }}</li>
+              }
+              @empty {
+                <li class="text-danger"><i class="bi bi-exclamation-circle"></i> Sin síntomas</li>
+              }
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h6>Tratamientos ({{ tratamientosSeleccionados().length }}):</h6>
+            <ul class="list-unstyled">
+              @for(tratamiento of tratamientosSeleccionados(); track tratamiento.id){
+                <li><i class="bi bi-check-circle text-success"></i> {{ tratamiento.nombre }}</li>
+              }
+              @empty {
+                <li class="text-danger"><i class="bi bi-exclamation-circle"></i> Sin tratamientos</li>
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
 </div>

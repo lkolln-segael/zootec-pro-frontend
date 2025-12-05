@@ -1,0 +1,27 @@
+<div class="search-autocomplete-container">
+  <div class="input-group">
+    <input
+      type="text"
+      class="form-control"
+      [placeholder]="placeholder()"
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="onInputChange()"
+      (keyup.enter)="onSearch()"
+      (blur)="onBlur()"
+      aria-label="Search"
+      autocomplete="off"
+    >
+    <button class="btn btn-outline-primary" type="button" (click)="onSearch()">
+      Buscar
+    </button>
+  </div>
+  @if (showSuggestions() && filteredSuggestions().length > 0) {
+    <ul class="autocomplete-suggestions">
+      @for (suggestion of filteredSuggestions(); track suggestion) {
+        <li (mousedown)="onSelectSuggestion(suggestion)">
+          {{ suggestion }}
+        </li>
+      }
+    </ul>
+  }
+</div>
