@@ -1,4 +1,4 @@
-import { TipoAnimal } from "./animal.type";
+import { Animal, TipoAnimal } from "./animal.type";
 
 export type TipoEnfermedad = {
   id?: string;
@@ -20,3 +20,25 @@ export type Tratamientos = {
   descripcion: string;
 }
 
+export type Tratamiento = {
+  id: string,
+  nombre: string,
+  tipoTratamiento: Tratamientos
+}
+
+export type EnfermedadData = {
+  animalId: string,
+  tipoEnfermedadId: string;
+  sintomasIds: string[],
+  tratamientosIds: string[],
+  fechaRegistro: string
+}
+
+export type Enfermedad = {
+  id: string;
+  nombre: string;
+  tipoEnfermedad: TipoEnfermedad,
+  tratamientos: Tratamiento[],
+  animal: Animal;
+  fechaRegistro: string;
+}

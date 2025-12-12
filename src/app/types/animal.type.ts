@@ -41,6 +41,10 @@ export type DesarrolloCrecimiento = {
   unidadesAnimal: string;
 }
 
+export type DesarrolloCrecimientoForm = Omit<DesarrolloCrecimiento, "id"> & {
+  animalId: string
+}
+
 export type Animal = {
   id: string,
   descripcion: string,
@@ -53,4 +57,18 @@ export type Animal = {
   genero: boolean
   tipoAnimal: TipoAnimal
   desarrollosCrecimiento: DesarrolloCrecimiento[]
+}
+
+export type ProduccionForm = {
+  animalId: string;
+  pesoLeche: number;
+  phLeche: string;
+  ureaLeche: string;
+  fechaRegistro: string;
+  aflatoxinas: number;
+}
+
+export type Produccion = Exclude<ProduccionForm, "animalId"> & {
+  animal: Animal,
+  id: string
 }

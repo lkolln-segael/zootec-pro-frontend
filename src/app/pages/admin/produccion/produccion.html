@@ -8,7 +8,30 @@
     </tr>
   </thead>
   <tbody>
+    @for(produccion of producciones();track produccion.id){
     <tr>
+      <th scope="col">
+        {{ $index + 1 }}
+      </th>
+      <th scope="col">
+        {{ produccion.animal.codigo }}
+      </th>
+      <th scope="col">
+        {{ produccion.pesoLeche }}
+      </th>
+      <th scope="col">
+        {{ produccion.ureaLeche }}
+      </th>
+      <th scope="col">
+        {{ produccion.aflatoxinas }}
+      </th>
+      <th scope="col">
+        {{ produccion.phLeche }}
+      </th>
+      <th scope="col">
+        {{ produccion.fechaRegistro }}
+      </th>
     </tr>
+    }
   </tbody>
 </table>

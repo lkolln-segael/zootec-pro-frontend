@@ -8,7 +8,35 @@
     </tr>
   </thead>
   <tbody>
+    @for(enfermedad of enfermedades();track enfermedad.id){
     <tr>
+      <th scope="col">
+          {{ $index + 1 }}
+      </th>
+      <th scope="col">
+          {{ enfermedad.nombre }}
+      </th>
+      <th scope="col">
+          <ul>
+            @for(tratamiento of enfermedad.tratamientos; track tratamiento.id){
+              <li> {{ tratamiento.nombre }}</li>
+            }
+          </ul>
+      </th>
+      <th scope="col">
+          <ul>
+            @for(sintoma of enfermedad.tipoEnfermedad.sintomas; track sintoma.id){
+              <li> {{ sintoma.nombre }}</li>
+            }
+          </ul>
+      </th>
+      <th scope="col">
+          {{ enfermedad.animal.codigo }}
+      </th>
+      <th scope="col">
+          {{ enfermedad.fechaRegistro }}
+      </th>
     </tr>
+    }
   </tbody>
 </table>

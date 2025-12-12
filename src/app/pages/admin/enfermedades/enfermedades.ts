@@ -1,4 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { EnfermedadService } from '@/service/enfermedad.service';
+import { Enfermedad } from '@/types/enfermedad.type';
+import { Component, inject, signal } from '@angular/core';
 
 @Component({
   selector: 'app-enfermedades',
@@ -8,6 +10,18 @@ import { Component, signal } from '@angular/core';
 })
 export class Enfermedades {
   fields = signal(["Nombre",
-    "Tratamientos", "Sintomas", "Animal"
+    "Tratamientos", "Sintomas", "Animal", "Fecha registro"
   ]).asReadonly()
+  enfermedadService = inject(EnfermedadService)
+
+  enfermedades = signal<Enfermedad[]>([])
+
+
+  ngOnInit() {
+    this.enfermedadService.getEnfermedades().subscribe({
+      next: (res) => {
+        this.enfermedades.set(res.data)
+      }
+    })
+  }
 }

@@ -2,7 +2,7 @@ import { SearchAutocomplete } from '@/components/atomics/search-autocomplete/sea
 import { AnimalService } from '@/service/animal.service';
 import { EnfermedadService } from '@/service/enfermedad.service';
 import { Animal } from '@/types/animal.type';
-import { TipoEnfermedad } from '@/types/enfermedad.type';
+import { EnfermedadData, TipoEnfermedad } from '@/types/enfermedad.type';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -85,7 +85,11 @@ export class Enfermedades {
   }
 
   onSearch(search: string) {
-    console.log('Búsqueda realizada:', search);
+    const animal = this.animales().find(animal => animal.codigo === search)
+    if (!animal) {
+      return
+    }
+    this.animalSelectedId.set(animal.id)
   }
 
   // Métodos para síntomas
@@ -153,8 +157,7 @@ export class Enfermedades {
       return;
     }
 
-    const enfermedadData = {
-      id: crypto.randomUUID(),
+    const enfermedadData: EnfermedadData = {
       animalId: this.animalSelectedId(),
       tipoEnfermedadId: this.tipoEnfermedadSelectedId(),
       sintomasIds: this.sintomasSeleccionados().map(s => s.id),
@@ -165,7 +168,7 @@ export class Enfermedades {
     console.log('Registrando enfermedad:', enfermedadData);
 
     // Aquí llamarías al servicio para guardar la enfermedad
-    // this.enfermedadService.crearEnfermedad(enfermedadData).subscribe(...);
+    this.enfermedadService.crearEnfermedad(enfermedadData).subscribe();
 
     // Resetear formulario
     this.resetForm();

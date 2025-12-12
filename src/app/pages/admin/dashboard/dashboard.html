@@ -2,31 +2,33 @@
   <div class="row">
     <div class="col-sm-4 col-lg-4 col-md-4 col-xl-4">
       <app-card-component [title]="'Produccion Lechera'" [color]="Color.GREEN"
-        [descripcion]="'1500L'" [comparacion]="'20% con respecto al mes anterior'"/>
+        [descripcion]="leche()" [comparacion]="lecheComparacion()"/>
     </div>
     <div class="col-sm-4 col-lg-4 col-md-4 col-xl-4">
       <app-card-component [title]="'Animales enfermos'" [color]="Color.RED"
-        [descripcion]="'15 animales'" [comparacion]="'-50% con respecto al mes anterior'"/>
+        [descripcion]="totalAnimales()" [comparacion]="totalAnimalesComparacion()"/>
     </div>
     <div class="col-sm-4 col-lg-4 col-md-4 col-xl-4">
       <app-card-component [title]="'Total animales'" [color]="Color.BLUE"
-        [descripcion]="'80 animales '" [comparacion]="'0% con respecto al mes anterior'"/>
+        [descripcion]="totalAnimales()" [comparacion]="totalAnimalesComparacion()"/>
     </div>
   </div>
-  <div class="row">
-    <app-bar-chart-component [valores]="[15,20,16,20]"
-      [titulo]="'Numero de animales'"/>
-  </div>
-  <div class="row">
-    <app-circle-chart-component [labels]="enfermedadesLabels()" [valores]="[15,20,16,20]"
-      [titulo]="'Numero de animales'"/>
-  </div>
-  <div class="row">
-    <app-bar-chart-component [valores]="[15,20,16,20]"
-      [titulo]="'Produccion Lechera'"/>
-  </div>
-  <div class="row">
-    <app-bar-chart-component [valores]="[15,20,16,20]"
-      [titulo]="'Trabajadores'"/>
-  </div>
+  @if(loadChart()){
+    <div class="row">
+      <app-bar-chart-component [valores]="numeroAnimales()"
+        [titulo]="'Numero de animales'"/>
+    </div>
+    <div class="row">
+      <app-circle-chart-component [labels]="enfermedadesLabels()" [valores]="enfermedadesCount()"
+        [titulo]="'Numero de animales'"/>
+    </div>
+    <div class="row">
+      <app-bar-chart-component [valores]="produccionesMes()"
+        [titulo]="'Produccion Lechera'"/>
+    </div>
+    <div class="row">
+      <app-bar-chart-component [valores]="[15,20,16,20]"
+        [titulo]="'Trabajadores'"/>
+    </div>
+  }
 </div>

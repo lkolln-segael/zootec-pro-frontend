@@ -20,6 +20,8 @@ export class SearchAutocomplete {
   showSuggestions = signal<boolean>(false)
   filteredSuggestions = signal<string[]>([])
 
+  guardado = signal<boolean>(false)
+
 
   onInputChange() {
     this.showSuggestions.set(true)
@@ -36,6 +38,7 @@ export class SearchAutocomplete {
   onSearch() {
     this.search.emit(this.searchTerm())
     this.showSuggestions.set(false)
+    this.guardado.update(value => !value)
   }
   onBlur() {
     setTimeout(() => {

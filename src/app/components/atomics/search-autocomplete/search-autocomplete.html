@@ -10,9 +10,15 @@
       (blur)="onBlur()"
       aria-label="Search"
       autocomplete="off"
+      [disabled]="guardado()"
     >
     <button class="btn btn-outline-primary" type="button" (click)="onSearch()">
-      Buscar
+      @if(guardado()){
+        Buscar
+      }
+      @else{
+        Guardar
+      }
     </button>
   </div>
   @if (showSuggestions() && filteredSuggestions().length > 0) {

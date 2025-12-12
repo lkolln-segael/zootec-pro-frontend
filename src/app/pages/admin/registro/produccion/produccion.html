@@ -1,27 +1,36 @@
 <div class="container">
-  <div class="row">
-    <label for="Animal" class="form-label">Codigo del animal</label>
-    <input type="text" id="Animal" class="form-control">
-  </div>
-  <div class="row">
-    <label for="peso" class="form-label">Peso de la leche</label>
-    <input type="number" id="peso" class="form-control">
-  </div>
-  <div class="row">
-    <label for="ph" class="form-label">Ph de la leche</label>
-    <input type="number" id="ph" class="form-control">
-  </div>
-  <div class="row">
-    <label for="urea" class="form-label">Urea de la leche</label>
-    <input type="number" id="urea" class="form-control">
-  </div>
-  <div class="row">
-    <label for="fechaRegistro" class="form-label">Fecha de registro</label>
-    <input type="datetime-local" id="fechaRegistro" class="form-control">
-  </div>
-  <div class="row">
-    <button type="submit" class="btn btn-primary">
-      Registro de produccion
-    </button>
-  </div>
+  <form (submit)="registrarProduccion()">
+    <div class="row mb-3">
+      <label for="animales" class="form-label">Animales</label>
+      <app-search-autocomplete
+        [suggestions]="suggestions()"
+        placeholder="Búsqueda de animales"
+        (search)="onSearch($event)"/>
+    </div>
+    <div class="row">
+      <label for="peso" class="form-label">Peso de la leche</label>
+      <input type="number" id="peso" class="form-control" [(ngModel)]="produccion().pesoLeche" [ngModelOptions]="{standalone:true}">
+    </div>
+    <div class="row">
+      <label for="ph" class="form-label">Ph de la leche</label>
+      <input type="number" id="ph" class="form-control" [(ngModel)]="produccion().phLeche" [ngModelOptions]="{standalone:true}">
+    </div>
+    <div class="row">
+      <label for="aflatoxinas" class="form-label">Aflatoxinas</label>
+      <input type="number" id="aflatoxinas" class="form-control" [(ngModel)]="produccion().aflatoxinas" [ngModelOptions]="{standalone:true}">
+    </div>
+    <div class="row">
+      <label for="urea" class="form-label">Urea de la leche</label>
+      <input type="number" id="urea" class="form-control" [(ngModel)]="produccion().ureaLeche" [ngModelOptions]="{standalone:true}">
+    </div>
+    <div class="row">
+      <label for="fechaRegistro" class="form-label">Fecha de registro</label>
+      <input type="datetime-local" id="fechaRegistro" class="form-control" [(ngModel)]="produccion().fechaRegistro" [ngModelOptions]="{standalone:true}">
+    </div>
+    <div class="row">
+      <button type="submit" class="btn btn-primary">
+        Registro de produccion
+      </button>
+    </div>
+  </form>
 </div>
