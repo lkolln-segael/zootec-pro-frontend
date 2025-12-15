@@ -10,9 +10,9 @@
     <div class="form-panel">
       <form (submit)="login()" >
         <label class="form-label" for="nombreUsuario">Nombre Usuario</label>
-        <input class="form-control" type="text" [(ngModel)]="usuario().nombreUsuario" [ngModelOptions]="{standalone: true}" placeholder="Ingrese su nombre de usuario"/>
+        <input class="form-control" id="nombreUsuario" type="text" [(ngModel)]="usuario().nombreUsuario" [ngModelOptions]="{standalone: true}" placeholder="Ingrese su nombre de usuario"/>
         <label class="form-label" for="contraseña">Contraseña</label>
-        <input class="form-control" type="password" [(ngModel)]="usuario().password" [ngModelOptions]="{standalone: true}" placeholder="Ingrese su contraseña">
+        <input class="form-control" type="password"  id="contraseña" [(ngModel)]="usuario().password" [ngModelOptions]="{standalone: true}" placeholder="Ingrese su contraseña">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value=""/>
           <label class="form-check-label" for="recordarContraseña">Recordar contraseña</label>

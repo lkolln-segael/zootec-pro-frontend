@@ -1,3 +1,3 @@
 export const ENVIRONMENTS = {
-  "url": "https://zootecpro.com/api"
+  "url": "http://localhost:8080/api"
 } as const

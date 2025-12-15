@@ -1,4 +1,5 @@
 import { ENVIRONMENTS } from "@/../environments/environment"
+import { Rol, UsuarioForm } from "@/types/usuario.type";
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { jwtDecode, JwtPayload } from "jwt-decode";
@@ -22,7 +23,7 @@ export class UserService {
 
   loginUsuario(nombreUsuario: string, contraseña: string): Observable<HttpResponse<{ token: string }>> {
     return this.http.post<{ token: string }>(this.baseUrl + "/login", {
-      "nombreUsuario": nombreUsuario, "contraseña": contraseña
+      "nombreUsuario": nombreUsuario, "contrasena": contraseña
     }, {
       observe: "response"
     })
@@ -35,5 +36,25 @@ export class UserService {
     }
     const decoded: JwtPayload & { role: Role[] } = jwtDecode(token)
     return decoded["role"][0]["authority"] === "ROLE_ADMIN"
+  }
+
+  getRoles(): Observable<Rol[]> {
+    return this.http.get<Rol[]>(this.baseUrl + "/rol/list", {
+      headers: {
+        "Cache-Control": "public, max-age=3000;"
+      }
+    })
+  }
+
+  getUsuarios(establoId: string): Observable<UsuarioForm[]> {
+    return this.http.get<UsuarioForm[]>(this.baseUrl + `/users?establoId=${establoId}`)
+  }
+
+  register(usuarioForm: UsuarioForm): Observable<string> {
+    return this.http.post<string>(this.baseUrl + "/register", { ...usuarioForm })
+  }
+
+  insertTrabajador(usuarioForm: UsuarioForm, establoId: string): Observable<string> {
+    return this.http.post<string>(this.baseUrl + `/users/add?establoId=${establoId}`, { ...usuarioForm })
   }
 }
