@@ -1,94 +1,92 @@
-<<div class="container">
+<div class="container">
   @for(usuario of usuarios();track usuario.id){
-    <div class="form-container">
-        <h2 class="form-title">
-            <i class="bi bi-pencil-square"></i> Editar Usuario
-        </h2>
+    @if(usuario.id){
+      <div class="form-container mt-5">
+          <h2 class="form-title">
+              <i class="bi bi-pencil-square"></i> Editar Usuario
+          </h2>
 
-        <!-- Badge con ID del usuario -->
-        <div class="user-id-badge">
-      <strong>ID de Usuario:</strong> <span id="displayUserId">{{ usuario.id }}</span>
-        </div>
+          <!-- Badge con ID del usuario -->
+          <div class="user-id-badge">
+        <strong>ID de Usuario:</strong> <span id="displayUserId">{{ usuario.id }}</span>
+          </div>
 
-        <form id="formEditarUsuario" method="POST" action="">
-            <!-- Campo oculto para ID -->
-            <input type="hidden" id="userId" name="userId" [value]="usuario.id">
+          <form (submit)="editarUser(usuario.id!,$event)">
+              <!-- Campo Nombre -->
+              <div class="mb-3">
+                  <label for="nombre" class="form-label">Nombre Completo</label>
+                  <input
+                      type="text"
+                      class="form-control"
+                      [id]="'nombre-'+usuario.id"
+                      name="nombre"
+                      placeholder="Ingrese el nombre completo"
+                      [value]="usuario.nombre"
+                      required
+                  >
+                  <div class="invalid-feedback">
+                      Por favor ingrese el nombre.
+                  </div>
+              </div>
 
-            <!-- Campo Nombre -->
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre Completo</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="nombre"
-                    name="nombre"
-                    placeholder="Ingrese el nombre completo"
-                    [value]="usuario.nombre"
-                    required
-                >
-                <div class="invalid-feedback">
-                    Por favor ingrese el nombre.
-                </div>
-            </div>
+              <!-- Campo Nombre de Usuario -->
+              <div class="mb-3">
+                  <label for="nombreUsuario" class="form-label">Nombre de Usuario</label>
+                  <input
+                      type="text"
+                      class="form-control"
+                      [id]="'nombreUsuario-'+usuario.id"
+                      name="nombreUsuario"
+                      placeholder="Ingrese el nombre de usuario"
+                      [value]="usuario.nombreUsuario"
+                      required
+                      minlength="4"
+                  >
+                  <div class="invalid-feedback">
+                      El nombre de usuario debe tener al menos 4 caracteres.
+                  </div>
+              </div>
 
-            <!-- Campo Nombre de Usuario -->
-            <div class="mb-3">
-                <label for="nombreUsuario" class="form-label">Nombre de Usuario</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="nombreUsuario"
-                    name="nombreUsuario"
-                    placeholder="Ingrese el nombre de usuario"
-                    [value]="usuario.nombreUsuario"
-                    required
-                    minlength="4"
-                >
-                <div class="invalid-feedback">
-                    El nombre de usuario debe tener al menos 4 caracteres.
-                </div>
-            </div>
+              <!-- Campo Contraseña -->
+              <div class="mb-3">
+                  <label for="contrasena" class="form-label">Nueva Contraseña</label>
+                  <input
+                      type="password"
+                      class="form-control"
+                      [id]="'contraseña-'+usuario.id!"
+                      name="contraseña"
+                      placeholder="Ingrese nueva contraseña (opcional)"
+                      minlength="6"
+                  >
+                  <div class="password-note">
+                      <i class="bi bi-info-circle"></i> Dejar en blanco si no desea cambiar la contraseña
+                  </div>
+              </div>
 
-            <!-- Campo Contraseña -->
-            <div class="mb-3">
-                <label for="contrasena" class="form-label">Nueva Contraseña</label>
-                <input
-                    type="password"
-                    class="form-control"
-                    id="contrasena"
-                    name="contrasena"
-                    placeholder="Ingrese nueva contraseña (opcional)"
-                    minlength="6"
-                >
-                <div class="password-note">
-                    <i class="bi bi-info-circle"></i> Dejar en blanco si no desea cambiar la contraseña
-                </div>
-            </div>
+              <!-- Campo Rol -->
+              <div class="mb-4">
+                  <label for="rol" class="form-label">Rol</label>
+                  <select class="form-select" [id]="'rol-'+usuario.id!" name="rol" required>
+                      @for(rol of roles(); track rol.id){
+                        <option [value]="rol.id">{{ rol.nombre }}</option>
+                      }
+                  </select>
+                  <div class="invalid-feedback">
+                      Por favor seleccione un rol.
+                  </div>
+              </div>
 
-            <!-- Campo Rol -->
-            <div class="mb-4">
-                <label for="rol" class="form-label">Rol</label>
-                <select class="form-select" id="rol" name="rol" required>
-                    <option value="">Seleccione un rol</option>
-                    <option value="administrador">Administrador</option>
-                    <option value="veterinario" selected>Veterinario</option>
-                    <option value="operario">Operario</option>
-                </select>
-                <div class="invalid-feedback">
-                    Por favor seleccione un rol.
-                </div>
-            </div>
-
-            <!-- Botones -->
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">
-                    Guardar Cambios
-                </button>
-                <button type="button" class="btn btn-outline-secondary" onclick="window.history.back()">
-                    Cancelar
-                </button>
-            </div>
-        </form>
-    </div>
+              <!-- Botones -->
+              <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary">
+                      Guardar Cambios
+                  </button>
+                  <button type="button" class="btn btn-outline-secondary" onclick="window.history.back()">
+                      Cancelar
+                  </button>
+              </div>
+          </form>
+      </div>
+    }
   }
 </div>

@@ -21,4 +21,12 @@ export class EstabloService {
   getEstablos(userId: string): Observable<ApiResponse<Establo[]>> {
     return this.http.get<ApiResponse<Establo[]>>(this.baseUrl + "/establos/list?userName=" + userId)
   }
+
+  getEstablo(establoId: string): Observable<ApiResponse<Establo>> {
+    return this.http.get<ApiResponse<Establo>>(this.baseUrl + "/establos/" + establoId)
+  }
+
+  updateEstablo(establoId: string, establo: Establo): Observable<string> {
+    return this.http.put<string>(this.baseUrl + "/establos/edit/" + establoId, { ...establo })
+  }
 }

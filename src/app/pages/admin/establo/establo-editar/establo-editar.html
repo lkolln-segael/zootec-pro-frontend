@@ -6,10 +6,10 @@
 
       <!-- Badge con ID del establo -->
       <div class="establo-id-badge">
-          <strong>ID del Establo:</strong> <span id="displayEstabloId">EST-001</span>
+      <strong>ID del Establo:</strong> <span id="displayEstabloId">{{ establoId() }}</span>
       </div>
 
-      <form id="formEditarEstablo" method="POST" action="">
+      <form (submit)="uploadEstablo()" id="formEditarEstablo" method="POST" action="">
           <!-- Campo oculto para ID -->
           <input type="hidden" id="establoId" name="establoId" value="EST-001">
 
@@ -25,7 +25,9 @@
                   id="nombre"
                   name="nombre"
                   placeholder="Ingrese el nombre del establo"
-                  value="Establo La Pradera"
+                  [value]="establo().nombre"
+                  [(ngModel)]="establo().nombre"
+                  [ngModelOptions]="{standalone:true}"
                   required
               >
               <div class="invalid-feedback">
@@ -36,17 +38,17 @@
           <!-- Campo Sistema de Producción -->
           <div class="mb-3">
               <label for="sistemaProduccion" class="form-label">Sistema de Producción</label>
-              <select class="form-select" id="sistemaProduccion" name="sistemaProduccion" required>
-                  <option value="">Seleccione un sistema</option>
-                  <option value="intensivo" selected>Intensivo</option>
-                  <option value="extensivo">Extensivo</option>
-                  <option value="semi-intensivo">Semi-Intensivo</option>
-                  <option value="organico">Orgánico</option>
-                  <option value="pastoreo-rotacional">Pastoreo Rotacional</option>
-              </select>
-              <div class="invalid-feedback">
-                  Por favor seleccione un sistema de producción.
-              </div>
+              <input
+                     type="text"
+                     class="form-control"
+                     id="sistemaProduccion"
+                     name="sistemaProduccion"
+                     placeholder="Ingresar el sistema de produccion"
+                     [value]="establo().sistemaProduccion ?? 'Intensivo'"
+                     [(ngModel)]="establo().sistemaProduccion"
+                     [ngModelOptions]="{standalone:true}"
+                     required
+              >
           </div>
 
           <!-- Campo Capacidad Máxima -->
@@ -59,7 +61,9 @@
                       id="capacidadMaxima"
                       name="capacidadMaxima"
                       placeholder="Número de animales"
-                      value="150"
+                      [(ngModel)]="establo().capacidadMaxima"
+                      [ngModelOptions]="{standalone:true}"
+                      [value]="establo().capacidadMaxima"
                       min="1"
                       required
                   >
@@ -83,7 +87,9 @@
                       id="areaTotal"
                       name="areaTotal"
                       placeholder="Área total del establo"
-                      value="5000"
+                      [(ngModel)]="establo().areaTotal"
+                      [ngModelOptions]="{standalone:true}"
+                      [value]="establo().areaTotal"
                       min="0"
                       step="0.01"
                       required
@@ -105,7 +111,9 @@
                       id="areaPasto"
                       name="areaPasto"
                       placeholder="Área destinada a pasto"
-                      value="2500"
+                      [(ngModel)]="establo().areaPasto"
+                      [ngModelOptions]="{standalone:true}"
+                      [value]="establo().areaPasto"
                       min="0"
                       step="0.01"
                   >
@@ -123,7 +131,9 @@
                       id="areaBosque"
                       name="areaBosque"
                       placeholder="Área de bosque"
-                      value="1000"
+                      [(ngModel)]="establo().areaBosque"
+                      [ngModelOptions]="{standalone:true}"
+                      [value]="establo().areaBosque"
                       min="0"
                       step="0.01"
                   >
@@ -141,7 +151,9 @@
                       id="areaCultivos"
                       name="areaCultivos"
                       placeholder="Área destinada a cultivos"
-                      value="800"
+                      [(ngModel)]="establo().areaCultivos"
+                      [ngModelOptions]="{standalone:true}"
+                      [value]="establo().areaCultivos"
                       min="0"
                       step="0.01"
                   >
@@ -159,7 +171,9 @@
                       id="areaConstruida"
                       name="areaConstruida"
                       placeholder="Área de construcciones"
-                      value="700"
+                      [(ngModel)]="establo().areaConstruida"
+                      [ngModelOptions]="{standalone:true}"
+                      [value]="establo().areaConstruida"
                       min="0"
                       step="0.01"
                   >
@@ -175,6 +189,9 @@
                   id="ubicacion"
                   name="ubicacion"
                   rows="3"
+                  [(ngModel)]="establo().ubicacion"
+                  [ngModelOptions]="{standalone:true}"
+                  [value]="establo().ubicacion"
                   placeholder="Ingrese la dirección o coordenadas del establo"
                   required
               >Km 15 Vía Rural, Vereda El Pastizal, Municipio de Cartago, Valle del Cauca, Colombia</textarea>
@@ -193,28 +210,5 @@
               </button>
           </div>
       </form>
-
-      <!-- Resumen de Distribución de Áreas -->
-      <div id="resumenAreas" class="mt-4 p-3" style="background-color: #f8f9fa; border-radius: 8px; display: none;">
-          <h6 class="text-center mb-3">📊 Distribución de Áreas</h6>
-          <div class="row text-center">
-              <div class="col-6 col-md-3 mb-2">
-                  <small class="text-muted">Pasto</small>
-                  <div id="porcentajePasto" class="fw-bold text-success">-</div>
-              </div>
-              <div class="col-6 col-md-3 mb-2">
-                  <small class="text-muted">Bosque</small>
-                  <div id="porcentajeBosque" class="fw-bold text-success">-</div>
-              </div>
-              <div class="col-6 col-md-3 mb-2">
-                  <small class="text-muted">Cultivos</small>
-                  <div id="porcentajeCultivos" class="fw-bold text-success">-</div>
-              </div>
-              <div class="col-6 col-md-3 mb-2">
-                  <small class="text-muted">Construida</small>
-                  <div id="porcentajeConstruida" class="fw-bold text-success">-</div>
-              </div>
-          </div>
-      </div>
   </div>
   </div>

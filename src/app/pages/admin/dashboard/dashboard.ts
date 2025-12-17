@@ -8,6 +8,9 @@ import { Enfermedad, TipoEnfermedad } from '@/types/enfermedad.type';
 import { EnfermedadService } from '@/service/enfermedad.service';
 import { AnimalService } from '@/service/animal.service';
 import { Animal, Produccion } from '@/types/animal.type';
+import { EstabloService } from '@/service/establos.service';
+import { UsuarioForm } from '@/types/usuario.type';
+import { UserService } from '@/service/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +26,8 @@ export class Dashboard {
 
   private readonly enfermedadService = inject(EnfermedadService)
   private readonly animalService = inject(AnimalService)
+  private readonly establoService = inject(EstabloService)
+  private readonly usuarioService = inject(UserService)
 
   search = this.searchService.searchReadSignal
 
@@ -107,6 +112,7 @@ export class Dashboard {
   animales = signal<Animal[]>([])
   producciones = signal<Produccion[]>([])
   enfermedades = signal<Enfermedad[]>([])
+  trabajadores = signal<UsuarioForm[]>([])
 
 
   enfermedadesCount = computed(() => {
@@ -130,6 +136,19 @@ export class Dashboard {
       }
     }
     return produccionesCount
+  })
+
+  trabajadoresMes = computed(() => {
+    const año = new Date().getFullYear()
+    const trabajadoresCount: number[] = []
+    for (let mes = 1; mes <= 12; mes++) {
+      trabajadoresCount.push(this.trabajadores()
+        .filter(t => new Date(año, mes - 1, 1) <= new Date(t.fechaCreacion!) &&
+          new Date(t.fechaCreacion!) < new Date(año, mes, 1))
+        .length)
+    }
+    console.log(trabajadoresCount)
+    return trabajadoresCount
   })
 
   constructor() {
@@ -166,6 +185,12 @@ export class Dashboard {
         next: (res) => {
           this.enfermedades.set(res.data)
           this.chartLoaded.update(value => value + 1)
+        }
+      })
+    this.usuarioService.getTrabajadores(establoId)
+      .subscribe({
+        next: (res) => {
+          this.trabajadores.set(res)
         }
       })
   }

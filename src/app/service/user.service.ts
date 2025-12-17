@@ -23,7 +23,7 @@ export class UserService {
 
   loginUsuario(nombreUsuario: string, contraseña: string): Observable<HttpResponse<{ token: string }>> {
     return this.http.post<{ token: string }>(this.baseUrl + "/login", {
-      "nombreUsuario": nombreUsuario, "contrasena": contraseña
+      "nombreUsuario": nombreUsuario, "contraseña": contraseña
     }, {
       observe: "response"
     })
@@ -56,5 +56,13 @@ export class UserService {
 
   insertTrabajador(usuarioForm: UsuarioForm, establoId: string): Observable<string> {
     return this.http.post<string>(this.baseUrl + `/users/add?establoId=${establoId}`, { ...usuarioForm })
+  }
+
+  getTrabajadores(establoId: string): Observable<UsuarioForm[]> {
+    return this.http.get<UsuarioForm[]>(this.baseUrl + `/users?establoId=${establoId}`)
+  }
+
+  editTrabajador(id: string, establoId: string, usuarioForm: UsuarioForm): Observable<string> {
+    return this.http.put<string>(this.baseUrl + `/users/edit/${id}?establoId=${establoId}`, { ...usuarioForm })
   }
 }

@@ -1,5 +1,5 @@
 import { UserService } from '@/service/user.service';
-import { UsuarioForm } from '@/types/usuario.type';
+import { Rol, UsuarioForm } from '@/types/usuario.type';
 import { Component, inject, signal } from '@angular/core';
 
 @Component({
@@ -12,6 +12,8 @@ export class UsuarioEditar {
 
   usuarios = signal<UsuarioForm[]>([])
 
+  roles = signal<Rol[]>([])
+
   private readonly usuarioService = inject(UserService)
 
   ngOnInit() {
@@ -23,6 +25,40 @@ export class UsuarioEditar {
       .subscribe({
         next: (res) => {
           this.usuarios.set(res)
+        }
+      })
+    this.usuarioService.getRoles()
+      .subscribe({
+        next: (res) => {
+          this.roles.set(res)
+        }
+      })
+  }
+
+  editarUser(id: string, event: SubmitEvent) {
+    const target = event.target as HTMLFormElement
+    if (!target) {
+      return
+    }
+    const establoId = localStorage.getItem("establoId")
+    if (!establoId) {
+      return
+    }
+    const nombre = (target.querySelector('[name="nombre"]') as HTMLInputElement).value
+    const nombreUsuario = (target.querySelector("[name='nombreUsuario']") as HTMLInputElement).value
+    const contraseña = (target.querySelector("[name='contraseña']") as HTMLInputElement).value
+    const rol = (target.querySelector("[name='rol']") as HTMLSelectElement).value
+    const newUsuario: UsuarioForm = {
+      nombre: nombre,
+      nombreUsuario: nombreUsuario,
+      contraseña: contraseña,
+      idRol: rol,
+    }
+
+    this.usuarioService.editTrabajador(id, establoId, newUsuario)
+      .subscribe({
+        next: (res) => {
+          console.log(res)
         }
       })
   }

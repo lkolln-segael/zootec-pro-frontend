@@ -3,8 +3,9 @@ export type UsuarioForm = {
   id?: string;
   nombre: string;
   nombreUsuario: string;
-  password: string;
+  contraseña: string;
   idRol: string;
+  fechaCreacion?: string
 }
 
 export type Rol = {

@@ -10,7 +10,12 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './usuario-insertar.css',
 })
 export class UsuarioInsertar {
-  usuarioForm = model({} as UsuarioForm)
+  usuarioForm = model<UsuarioForm>({
+    nombre: '',
+    nombreUsuario: '',
+    contraseña: '',
+    idRol: ''
+  })
 
   roles = signal<Rol[]>([])
 
@@ -30,7 +35,6 @@ export class UsuarioInsertar {
     if (!establoId) {
       return
     }
-    console.log(this.usuarioForm())
     this.userService.insertTrabajador(this.usuarioForm(), establoId)
       .subscribe({
         next: (res: string) => {
