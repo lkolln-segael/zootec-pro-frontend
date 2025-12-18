@@ -55,8 +55,8 @@ export class SidebarComponent {
       title: "Registro",
       sublinks: [
         {
-          nombre: 'Partos',
-          url: 'registro/partos',
+          nombre: 'Reproduccion',
+          url: 'registro/reproduccion',
           icon: 'child'
         },
         {

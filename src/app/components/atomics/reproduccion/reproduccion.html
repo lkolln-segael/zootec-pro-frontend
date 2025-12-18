@@ -1,0 +1,218 @@
+<ng-content />
+<div class="modal fade" [id]="animalId()+'-reproduccion'" [attr.aria-labelledby]="animalId() + 'title'" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" [id]="animalId() + 'title'">Registros de Reproducción</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Indicador de carga -->
+        @if (isLoading()) {
+          <div class="text-center py-4">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+            <p class="mt-2">Cargando registros...</p>
+          </div>
+        } @else {
+          <!-- Pestañas para diferentes tipos de registros -->
+          <ul class="nav nav-tabs" id="reproduccionTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="prenez-tab" data-bs-toggle="tab"
+                      data-bs-target="#prenez" type="button" role="tab"  (click)="tabSelected.set(0)">
+                Preñez <span class="badge bg-primary ms-1">{{ prenez().length }}</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="confirmaciones-tab" data-bs-toggle="tab"
+                      data-bs-target="#confirmaciones" type="button" role="tab"  (click)="tabSelected.set(1)">
+                Confirmaciones <span class="badge bg-primary ms-1">{{ confirmaciones().length }}</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="partos-tab" data-bs-toggle="tab"
+                      data-bs-target="#partos" type="button" role="tab"
+                       (click)="tabSelected.set(2)">
+                Partos <span class="badge bg-primary ms-1">{{ partos().length }}</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="abortos-tab" data-bs-toggle="tab"
+                      data-bs-target="#abortos" type="button" role="tab"
+                      (click)="this.tabSelected.set(3)">
+                Abortos <span class="badge bg-primary ms-1">{{ abortos().length }}</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="secas-tab" data-bs-toggle="tab"
+                      data-bs-target="#secas" type="button" role="tab"
+                      (click)="this.tabSelected.set(4)">
+                Secas <span class="badge bg-primary ms-1">{{ secas().length }}</span>
+              </button>
+            </li>
+          </ul>
+
+          <!-- Contenido de las pestañas -->
+          <div class="tab-content py-3" id="reproduccionTabsContent">
+            @let tabClass = "tab-pane show";
+            <!-- Tabla de Preñez -->
+            <div [class]="tabClass + prenezActiva()" id="prenez" role="tabpanel">
+              @if (prenez().length === 0) {
+                <div class="alert alert-info">
+                  No hay registros de preñez para este animal.
+                </div>
+              } @else {
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover">
+                    <thead class="table-primary">
+                      <tr>
+                        <th>Fecha Celo</th>
+                        <th>Fecha Inseminación</th>
+                        <th>Fecha Diagnóstico</th>
+                        <th>Madre</th>
+                        <th>Padre</th>
+                        <th>Fecha Registro</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (registro of prenez(); track registro.id) {
+                        <tr>
+                          <td>{{ formatearFecha(registro.fechaCelo) }}</td>
+                          <td>{{ formatearFecha(registro.fechaInseminacion) }}</td>
+                          <td>{{ formatearFecha(registro.fechaDiagnostico) }}</td>
+                          <td>{{ registro.madre?.nombre || 'N/A' }}</td>
+                          <td>{{ registro.padre?.nombre || 'N/A' }}</td>
+                          <td>{{ formatearFecha(registro.fechaRegistro) }}</td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              }
+            </div>
+
+            <!-- Tabla de Confirmaciones -->
+            <div [class]="tabClass + confirmacionesActiva()" id="confirmaciones" role="tabpanel">
+              @if (confirmaciones().length === 0) {
+                <div class="alert alert-info">
+                  No hay confirmaciones de preñez para este animal.
+                </div>
+              } @else {
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover">
+                    <thead class="table-primary">
+                      <tr>
+                        <th>Tipo de Confirmación</th>
+                        <th>Fecha Registro</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (registro of confirmaciones(); track registro.id) {
+                        <tr>
+                          <td>{{ registro.tipoConfirmacion }}</td>
+                          <td>{{ formatearFecha(registro.fechaRegistro) }}</td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              }
+            </div>
+
+            <!-- Tabla de Partos -->
+            <div [class]="tabClass + partoActiva()" id="partos" role="tabpanel">
+              @if (partos().length === 0) {
+                <div class="alert alert-info">
+                  No hay registros de partos para este animal.
+                </div>
+              } @else {
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover">
+                    <thead class="table-primary">
+                      <tr>
+                        <th>Número de Parto</th>
+                        <th>Fecha Registro</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (registro of partos(); track registro.id) {
+                        <tr>
+                          <td>{{ registro.numero }}</td>
+                          <td>{{ formatearFecha(registro.fechaRegistro) }}</td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              }
+            </div>
+
+            <!-- Tabla de Abortos -->
+            <div [class]="tabClass + abortoActiva()" id="abortos" role="tabpanel">
+              @if (abortos().length === 0) {
+                <div class="alert alert-info">
+                  No hay registros de abortos para este animal.
+                </div>
+              } @else {
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover">
+                    <thead class="table-primary">
+                      <tr>
+                        <th>Tipo de Aborto</th>
+                        <th>Fecha Registro</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (registro of abortos(); track registro.id) {
+                        <tr>
+                          <td>{{ registro.tipoAborto }}</td>
+                          <td>{{ formatearFecha(registro.fechaRegistro) }}</td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              }
+            </div>
+
+            <!-- Tabla de Secas -->
+            <div [class]="tabClass + secaActiva()" id="secas" role="tabpanel">
+              @if (secas().length === 0) {
+                <div class="alert alert-info">
+                  No hay registros de secas para este animal.
+                </div>
+              } @else {
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover">
+                    <thead class="table-primary">
+                      <tr>
+                        <th>Motivo</th>
+                        <th>Fecha Registro</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (registro of secas(); track registro.id) {
+                        <tr>
+                          <td>{{ registro.motivo }}</td>
+                          <td>{{ formatearFecha(registro.fechaRegistro) }}</td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

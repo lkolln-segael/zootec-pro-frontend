@@ -2,10 +2,11 @@ import { AnimalService } from '@/service/animal.service';
 import { Animal, AnimalForm } from '@/types/animal.type';
 import { Component, inject, signal } from '@angular/core';
 import { DesarrolloComponent } from "@/components/atomics/desarrollo-component/desarrollo-component";
+import { Reproduccion } from "@/components/atomics/reproduccion/reproduccion";
 
 @Component({
   selector: 'app-animales',
-  imports: [DesarrolloComponent],
+  imports: [DesarrolloComponent, Reproduccion],
   templateUrl: './animales.html',
   styleUrl: './animales.css',
 })

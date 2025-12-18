@@ -1,0 +1,40 @@
+/* Estilos para el modal de reproducción */
+.modal-lg {
+  max-width: 900px;
+}
+
+.nav-tabs .nav-link {
+  color: #495057;
+  font-weight: 500;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #f8f9fa;
+  border-bottom-color: #f8f9fa;
+}
+
+.table-responsive {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+thead.table-primary th {
+  position: sticky;
+  top: 0;
+  background-color: #cfe2ff;
+  z-index: 10;
+}
+
+/* Estilos para las badges en las pestañas */
+.nav-link .badge {
+  font-size: 0.7em;
+}
+
+/* Estilos para las tablas */
+.table {
+  margin-bottom: 0;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.075);
+}

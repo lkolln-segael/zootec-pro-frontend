@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row mb-3">
+    <label for="animales" class="form-label">Animales</label>
+    <app-search-autocomplete
+      [suggestions]="suggestions()"
+      placeholder="Búsqueda de animales"
+      (search)="onSearch($event)"/>
+  </div>
+
+  <select id="tipo" class="form-select" (change)="changeTipo($event)">
+    @for(tipo of tipos; track $index){
+      <option [value]="tipo">{{ tipo }}</option>
+    }
+  </select>
+
+  @switch(tipo()){
+    @case("SECA"){
+      <app-registrar-seca [animalId]="animalSelectedId()" />
+    }
+    @case("ABORTO"){
+      <app-registrar-aborto [animalId]="animalSelectedId()"/>
+    }
+    @case("CONFIRMACION DE PREÑEZ"){
+      <app-registrar-confirmacion [animalId]="animalSelectedId()"/>
+    }
+    @case("PREÑEZ"){
+      <app-registrar-prenez [animalId]="animalSelectedId()"/>
+    }
+    @case("PARTO"){
+      <app-registrar-nacimiento [animalId]="animalSelectedId()"/>
+    }
+  }
+</div>

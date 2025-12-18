@@ -50,6 +50,11 @@
               Ver desarrollo
             </button>
           </app-desarrollo-component>
+          <app-reproduccion [animalId]="animal.id">
+            <button class="btn btn-outline-info" [attr.data-bs-target]="'#'+animal.id + '-reproduccion'" data-bs-toggle="modal">
+              Ver reproduccion
+            </button>
+          </app-reproduccion>
           <button class="btn btn-outline-danger ms-2">
             Ver arbol genealogico
           </button>

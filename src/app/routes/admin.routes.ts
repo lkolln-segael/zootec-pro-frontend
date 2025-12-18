@@ -34,9 +34,9 @@ export const ADMIN_ROUTES: Route[] = [
           .then(c => c.Produccion)
       },
       {
-        path: "registro/partos",
-        loadComponent: () => import("@/pages/admin/registro/parto/parto")
-          .then(c => c.Parto)
+        path: "registro/reproduccion",
+        loadComponent: () => import("@/pages/admin/registro/reproduccion/reproduccion")
+          .then(c => c.Reproduccion)
       },
       {
         path: "registro/crecimiento",
