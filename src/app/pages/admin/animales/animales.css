@@ -1,0 +1,114 @@
+/* Contenedor con scroll suave si la tabla es muy ancha */
+.table-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.custom-table thead {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #edf2f7;
+}
+
+.custom-table th {
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
+  color: #4a5568;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.custom-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #edf2f7;
+  vertical-align: middle;
+}
+
+/* Badges para Género */
+.badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.macho {
+  background: #ebf8ff;
+  color: #2b6cb0;
+}
+
+.hembra {
+  background: #fff5f5;
+  color: #c53030;
+}
+
+/* Botones */
+.btn-group-responsive {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+/* --- RESPONSIVE ESTRATEGIA: STACKING --- */
+@media screen and (max-width: 1024px) {
+  .custom-table thead {
+    display: none;
+    /* Escondemos el header original */
+  }
+
+  .custom-table,
+  .custom-table tbody,
+  .custom-table tr,
+  .custom-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .custom-table tr {
+    margin-bottom: 1.5rem;
+    border: 1px solid #edf2f7;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .custom-table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+    border-bottom: 1px solid #f7fafc;
+  }
+
+  /* El contenido del data-label se convierte en el título de la fila */
+  .custom-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    width: 45%;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+    color: #718096;
+  }
+
+  .actions-cell {
+    text-align: center !important;
+    padding-left: 15px !important;
+    background: #fcfcfc;
+  }
+
+  .btn-group-responsive {
+    justify-content: center;
+    padding: 10px 0;
+  }
+}

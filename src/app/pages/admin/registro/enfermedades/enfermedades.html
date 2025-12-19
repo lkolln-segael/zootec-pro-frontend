@@ -7,19 +7,25 @@
       placeholder="Búsqueda de animales"
       (search)="onSearch($event)"/>
   </div>
-
-  <!-- Selección de Tipo de Enfermedad -->
-  <div class="row mb-3">
-    <label for="tipo-enfermedad" class="form-label">Tipo de enfermedad</label>
-    <select class="form-select" id="tipo-enfermedad"
-            [(ngModel)]="tipoEnfermedadSelectedId"
-            (ngModelChange)="onTipoEnfermedadChange()">
-      <option value="" selected>Seleccione una opción</option>
-      @for(tipo of tipoEnfermedades(); track tipo.id){
-        <option [value]="tipo.id">{{ tipo.nombre }}</option>
-      }
-    </select>
-  </div>
+  @if(animalSelectedId()){
+    <!-- Selección de Tipo de Enfermedad -->
+    <div class="row mb-3">
+      <label for="tipo-enfermedad" class="form-label">Tipo de enfermedad</label>
+      <select class="form-select" id="tipo-enfermedad"
+              [(ngModel)]="tipoEnfermedadSelectedId"
+              (ngModelChange)="onTipoEnfermedadChange()">
+        <option value="" selected>Seleccione una opción</option>
+        @for(tipo of tipoEnfermedades(); track tipo.id){
+          <option [value]="tipo.id">{{ tipo.nombre }}</option>
+        }
+      </select>
+    </div>
+  }
+  @else{
+    <h2 class="text-danger text-center mt-3">
+      Seleccione un animal
+    </h2>
+  }
 
   <!-- Sección de Síntomas -->
   @if(tipoEnfermedadSelected()){
@@ -127,7 +133,7 @@
       <div class="col-12">
         <button class="btn btn-success w-100 btn-lg"
                 (click)="registrarEnfermedad()"
-                [disabled]="sintomasSeleccionados().length === 0 || tratamientosSeleccionados().length === 0">
+                [disabled]="sintomasSeleccionados().length === 0 || tratamientosSeleccionados().length === 0 && uploading()">
           <i class="bi bi-check-circle"></i> Registrar Enfermedad
         </button>
       </div>

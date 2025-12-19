@@ -1,62 +1,390 @@
 .background-container {
   position: fixed;
-  top: 0%;
-  left: 0%;
+  top: 0;
+  left: 0;
   background-image: url("/images/login.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   width: 100vw;
   height: 100vh;
   opacity: 70%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: -1;
 }
 
 .main-container {
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
-  z-index: 0;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.row.form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
 }
 
 .title {
   background-color: #28A7E9;
-  width: fit-content;
   padding: 20px;
   border-radius: 20px;
-  border-width: thick;
-  border-color: black;
-  border-style: solid;
+  border: thick solid black;
+  width: auto;
+  max-width: 90vw;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .text-white {
   font-size: 7em;
   color: white;
-  margin-bottom: 20px;
+  margin: 0;
+  line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-
 .form-panel {
-  margin-top: 20px;
   background-color: white;
   padding: 5px;
   border-radius: 10px;
-  border-width: thin;
-  border-style: solid;
+  border: thin solid #ddd;
+  width: 100%;
+  max-width: 500px;
 }
 
 .form-panel>form {
   padding: 30px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-panel>form>* {
-  padding: 20px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #28A7E9;
+  box-shadow: 0 0 0 3px rgba(40, 167, 233, 0.1);
+}
+
+.form-control::placeholder {
+  color: #999;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 15px !important;
+  margin: 5px 0 !important;
+}
+
+.form-check-input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.form-check-label {
+  color: #555;
+  cursor: pointer;
+  user-select: none;
 }
 
 .submit-btn {
   margin-top: 10px;
   width: 100%;
+  padding: 15px;
+  background-color: #28A7E9;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #1c8bc9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(40, 167, 233, 0.3);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive Styles */
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+  .text-white {
+    font-size: 5em;
+  }
+
+  .row.form-login {
+    max-width: 450px;
+  }
+
+  .form-panel {
+    max-width: 450px;
+  }
+
+  .form-panel>form {
+    padding: 25px;
+  }
+}
+
+/* Tablet pequeña */
+@media screen and (max-width: 768px) {
+  .text-white {
+    font-size: 4em;
+  }
+
+  .title {
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .row.form-login {
+    max-width: 400px;
+  }
+
+  .form-panel {
+    max-width: 400px;
+  }
+
+  .form-panel>form {
+    padding: 20px;
+  }
+
+  .form-panel>form>* {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .submit-btn {
+    padding: 14px;
+  }
+}
+
+/* Móvil */
+@media screen and (max-width: 480px) {
+  .main-container {
+    padding: 20px;
+    justify-content: center;
+    /* Asegura centrado vertical */
+  }
+
+  .row.form-login {
+    max-width: 100%;
+  }
+
+  .text-white {
+    font-size: 2.5em;
+  }
+
+  .title {
+    padding: 15px 10px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border: medium solid black;
+  }
+
+  .form-panel {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  .form-panel>form {
+    padding: 20px;
+  }
+
+  .form-panel>form>* {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .form-control {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .submit-btn {
+    padding: 12px;
+    font-size: 1rem;
+  }
+}
+
+/* Móvil muy pequeño */
+@media screen and (max-width: 360px) {
+  .main-container {
+    padding: 15px;
+  }
+
+  .text-white {
+    font-size: 2em;
+  }
+
+  .title {
+    padding: 12px 8px;
+  }
+
+  .form-panel>form {
+    padding: 15px;
+  }
+
+  .form-panel>form>* {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+/* Modo landscape en móvil */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+  .main-container {
+    justify-content: center;
+    /* Mantiene centrado */
+    padding: 10px;
+  }
+
+  .row.form-login {
+    flex-direction: row;
+    gap: 20px;
+    max-width: 90vw;
+    align-items: center;
+  }
+
+  .title {
+    margin-bottom: 0;
+    flex: 1;
+    max-width: 40%;
+  }
+
+  .text-white {
+    font-size: 2.5em;
+  }
+
+  .form-panel {
+    flex: 1;
+    max-width: 60%;
+    margin-top: 0;
+  }
+}
+
+/* Para pantallas muy grandes */
+@media screen and (min-width: 1920px) {
+  .main-container {
+    padding: 40px;
+  }
+
+  .row.form-login {
+    max-width: 600px;
+  }
+
+  .text-white {
+    font-size: 8em;
+  }
+
+  .form-panel {
+    max-width: 600px;
+  }
+
+  .form-panel>form {
+    padding: 40px;
+  }
+
+  .form-panel>form>* {
+    padding: 25px;
+    margin-bottom: 20px;
+  }
+
+  .form-control {
+    padding: 16px;
+    font-size: 1.1rem;
+  }
+
+  .submit-btn {
+    padding: 18px;
+    font-size: 1.2rem;
+  }
+}
+
+/* Ajustes de centrado específicos */
+@media screen and (max-height: 700px) {
+  .main-container {
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+/* Corrección para Safari */
+@supports (-webkit-touch-callout: none) {
+  .main-container {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Para cuando el teclado se abre en móvil */
+@media screen and (max-height: 500px) {
+  .main-container {
+    justify-content: flex-start;
+    padding-top: 20px;
+  }
+}
+
+/* Spinner para carga */
+.submit-btn.loading {
+  position: relative;
+  color: transparent;
+}
+
+.submit-btn.loading::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }

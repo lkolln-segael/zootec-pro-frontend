@@ -5,6 +5,7 @@ import { Animal } from '@/types/animal.type';
 import { PrenezForm } from '@/types/reproduccion.type';
 import { FormsModule } from '@angular/forms';
 import { ReproduccionService } from '@/service/reproduccion.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registrar-prenez',
@@ -24,8 +25,11 @@ export class RegistrarPrenez {
     madreId: ''
   })
 
+  uploading = signal(false)
+
   private animalService = inject(AnimalService)
   private reproduccionService = inject(ReproduccionService)
+  private toastrService = inject(ToastrService)
 
   animales = signal<Animal[]>([])
   suggestions = computed(() => {
@@ -61,10 +65,12 @@ export class RegistrarPrenez {
       value.madreId = this.madreSelectedId()
       return value
     })
+    this.uploading.set(true)
     this.reproduccionService.insertReproduccionPreñez(this.animalId(), this.prenez())
       .subscribe({
         next: (res) => {
-          console.log(res.message)
+          this.uploading.set(false)
+          this.toastrService.success(res.message)
         }
       })
   }

@@ -8,7 +8,7 @@
     <input type="text" class="form-control" id="numero" name="numero" />
   </div>
   <div class="mt-3 d-flex justify-content-center">
-    <button class="btn btn-primary" type="submit">
+    <button [disabled]="uploading()" class="btn btn-primary" type="submit">
       Registrar parto
     </button>
     <button class="ms-2 btn btn-warning">

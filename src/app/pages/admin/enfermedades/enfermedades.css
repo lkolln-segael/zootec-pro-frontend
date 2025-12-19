@@ -1,0 +1,108 @@
+/* Contenedor principal */
+.table-card-container {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: white;
+  margin: 1.5rem 0;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Encabezados */
+.modern-table thead {
+  background-color: #2c3e50;
+  color: white;
+}
+
+.modern-table th {
+  padding: 15px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+/* Celdas y Listas */
+.modern-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #f1f1f1;
+  vertical-align: top;
+}
+
+.custom-list {
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+.custom-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+/* Indicadores visuales (Dots) */
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.treatment {
+  background-color: #2ecc71;
+}
+
+.symptom {
+  background-color: #e74c3c;
+}
+
+.animal-code {
+  background: #f0f2f5;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+/* --- MÓVIL (Max 992px) --- */
+@media (max-width: 992px) {
+  .modern-table thead {
+    display: none;
+  }
+
+  .modern-table tr {
+    display: block;
+    border: 1px solid #eee;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  .modern-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border: none;
+    padding: 8px 5px;
+    text-align: right;
+  }
+
+  .modern-table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: #7f8c8d;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    margin-right: 15px;
+    text-align: left;
+  }
+
+  .custom-list {
+    text-align: right;
+  }
+}

@@ -1,15 +1,17 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 type SubLinks = {
   nombre: string;
   url: string;
   icon: string;
+  authorities?: string[]
 }
 
 type Navigation = {
   title: string;
-  sublinks: SubLinks[]
+  sublinks: SubLinks[];
+  authorities?: string[]
 }
 
 
@@ -20,7 +22,10 @@ type Navigation = {
   styleUrl: './sidebar-component.css',
 })
 export class SidebarComponent {
-  navigation = signal<Navigation[]>([
+
+  authority = input<string>("")
+
+  navigationAdmin: Navigation[] = [
     {
       title: 'Navigation',
       sublinks: [
@@ -126,8 +131,32 @@ export class SidebarComponent {
         }
       ]
     }
-  ]).asReadonly()
+  ]
 
+  navigation = computed(() => {
+    switch (this.authority()) {
+      case "OPERARARIO":
+        return this.navigationAdmin.filter(t => !(["Usuarios", "Establo"].includes(t.title)))
+          .map(t => {
+            t.sublinks = t.sublinks.filter(s => !(["Sanidad", "Reproduccion"].includes(s.nombre)))
+            return t
+          })
+      case "VETERINARIO":
+        return this.navigationAdmin.filter(t => !(["Usuarios", "Establo"].includes(t.title)))
+          .map(t => {
+            t.sublinks = t.sublinks.filter(s => !(["Produccion"].includes(s.nombre)))
+            return t
+          })
+      default:
+        return this.navigationAdmin
+    }
+  })
+
+  cerrarSesion() {
+    localStorage.removeItem("establoId")
+    sessionStorage.removeItem("token")
+    window.location.href = "/"
+  }
 
   icon(iconType: string) {
     return `fa-solid fa-${iconType}`

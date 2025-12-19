@@ -52,7 +52,7 @@
                   name="password"
                   placeholder="Ingrese la contraseña"
                   required
-                  [(ngModel)]="usuarioForm()['contraseña']"
+                  [(ngModel)]="usuarioForm().password"
                   [ngModelOptions]="{standalone:true}"
                   minlength="6"
               >
@@ -75,7 +75,7 @@
 
           <!-- Botones -->
           <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" [disabled]="uploading()" class="btn btn-primary">
                   Crear Usuario
               </button>
               <button type="reset" class="btn btn-outline-secondary">

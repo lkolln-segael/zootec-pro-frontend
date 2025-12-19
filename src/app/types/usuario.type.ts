@@ -4,6 +4,7 @@ export type UsuarioForm = {
   nombre: string;
   nombreUsuario: string;
   contraseña: string;
+  password?: string;
   idRol: string;
   fechaCreacion?: string
 }

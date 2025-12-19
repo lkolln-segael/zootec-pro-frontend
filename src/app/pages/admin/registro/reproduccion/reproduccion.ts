@@ -8,6 +8,7 @@ import { RegistrarAborto } from "@/components/organics/registrar-aborto/registra
 import { RegistrarConfirmacion } from "@/components/organics/registrar-confirmacion/registrar-confirmacion";
 import { RegistrarPrenez } from "@/components/organics/registrar-prenez/registrar-prenez";
 import { RegistrarNacimiento } from "@/components/organics/registrar-nacimiento/registrar-nacimiento";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-reproduccion',

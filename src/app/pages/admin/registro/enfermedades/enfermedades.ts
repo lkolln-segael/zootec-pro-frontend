@@ -5,6 +5,7 @@ import { Animal } from '@/types/animal.type';
 import { EnfermedadData, TipoEnfermedad } from '@/types/enfermedad.type';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-enfermedades',
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 export class Enfermedades {
   animalService = inject(AnimalService);
   enfermedadService = inject(EnfermedadService);
+  toastrService = inject(ToastrService)
 
   // Señales principales
   animales = signal<Animal[]>([]);
@@ -30,6 +32,8 @@ export class Enfermedades {
   // Señales para inputs temporales
   sintomaTemporalId = signal<string>("");
   tratamientoTemporalId = signal<string>("");
+
+  uploading = signal(false)
 
   suggestions = computed(() => {
     return this.animales().map(a => a.codigo);
@@ -156,7 +160,7 @@ export class Enfermedades {
       alert('Debe agregar al menos un tratamiento');
       return;
     }
-
+    this.uploading.set(true)
     const enfermedadData: EnfermedadData = {
       animalId: this.animalSelectedId(),
       tipoEnfermedadId: this.tipoEnfermedadSelectedId(),
@@ -165,11 +169,13 @@ export class Enfermedades {
       fechaRegistro: new Date().toISOString()
     };
 
-    console.log('Registrando enfermedad:', enfermedadData);
-
     // Aquí llamarías al servicio para guardar la enfermedad
-    this.enfermedadService.crearEnfermedad(enfermedadData).subscribe();
-
+    this.enfermedadService.crearEnfermedad(enfermedadData).subscribe({
+      next: (res) => {
+        this.uploading.set(false)
+        this.toastrService.success("Enfermedad registrada con exito")
+      }
+    });
     // Resetear formulario
     this.resetForm();
   }

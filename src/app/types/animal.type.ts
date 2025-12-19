@@ -61,9 +61,9 @@ export type Animal = {
 
 export type ProduccionForm = {
   animalId: string;
-  pesoLeche: number;
-  phLeche: string;
-  ureaLeche: string;
+  volumen: number;
+  phLeche: number;
+  ureaLeche: number;
   fechaRegistro: string;
   aflatoxinas: number;
 }

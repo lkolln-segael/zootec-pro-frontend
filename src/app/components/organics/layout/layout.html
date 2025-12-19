@@ -1,9 +1,12 @@
 <div id="main-container">
-  @if(hideSideBar()){
-  <aside class="sidebar">
-    <app-sidebar-component />
+  <div class="sidebar-overlay"
+       [class.active]="!hideSideBar()"
+       (click)="handleSideBar(true)">
+  </div>
+
+  <aside class="sidebar" [class.active]="!hideSideBar()" (mouseover)="hideSideBar.set(false)" (mouseout)="hideSideBar.set(true)">
+    <app-sidebar-component [authority]="authority()"/>
   </aside>
-  }
 
   <div class="main-area">
     <app-navbar-component (isHidingSideBar)="handleSideBar($event)"/>

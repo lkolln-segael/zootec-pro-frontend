@@ -7,30 +7,37 @@
         placeholder="Búsqueda de animales"
         (search)="onSearch($event)"/>
     </div>
-    <div class="row">
-      <label for="peso" class="form-label">Peso de la leche</label>
-      <input type="number" id="peso" class="form-control" [(ngModel)]="produccion().pesoLeche" [ngModelOptions]="{standalone:true}">
-    </div>
-    <div class="row">
-      <label for="ph" class="form-label">Ph de la leche</label>
-      <input type="number" id="ph" class="form-control" [(ngModel)]="produccion().phLeche" [ngModelOptions]="{standalone:true}">
-    </div>
-    <div class="row">
-      <label for="aflatoxinas" class="form-label">Aflatoxinas</label>
-      <input type="number" id="aflatoxinas" class="form-control" [(ngModel)]="produccion().aflatoxinas" [ngModelOptions]="{standalone:true}">
-    </div>
-    <div class="row">
-      <label for="urea" class="form-label">Urea de la leche</label>
-      <input type="number" id="urea" class="form-control" [(ngModel)]="produccion().ureaLeche" [ngModelOptions]="{standalone:true}">
-    </div>
-    <div class="row">
-      <label for="fechaRegistro" class="form-label">Fecha de registro</label>
-      <input type="datetime-local" id="fechaRegistro" class="form-control" [(ngModel)]="produccion().fechaRegistro" [ngModelOptions]="{standalone:true}">
-    </div>
-    <div class="row">
-      <button type="submit" class="btn btn-primary">
-        Registro de produccion
-      </button>
-    </div>
+    @if(animalSelectedId()){
+      <div class="row">
+        <label for="peso" class="form-label">Volumen de la leche</label>
+        <input type="number" id="peso" class="form-control" [(ngModel)]="produccion().volumen" [ngModelOptions]="{standalone:true}">
+      </div>
+      <div class="row">
+        <label for="ph" class="form-label">Ph de la leche</label>
+        <input type="number" id="ph" class="form-control" [(ngModel)]="produccion().phLeche" [ngModelOptions]="{standalone:true}">
+      </div>
+      <div class="row">
+        <label for="aflatoxinas" class="form-label">Aflatoxinas</label>
+        <input type="number" id="aflatoxinas" class="form-control" [(ngModel)]="produccion().aflatoxinas" [ngModelOptions]="{standalone:true}">
+      </div>
+      <div class="row">
+        <label for="urea" class="form-label">Urea de la leche</label>
+        <input type="number" id="urea" class="form-control" [(ngModel)]="produccion().ureaLeche" [ngModelOptions]="{standalone:true}">
+      </div>
+      <div class="row">
+        <label for="fechaRegistro" class="form-label">Fecha de registro</label>
+        <input type="datetime-local" id="fechaRegistro" class="form-control" [(ngModel)]="produccion().fechaRegistro" [ngModelOptions]="{standalone:true}">
+      </div>
+      <div class="row">
+        <button [disabled]="uploading()" type="submit" class="btn btn-primary">
+          Registro de produccion
+        </button>
+      </div>
+    }
+    @else{
+      <h2 class="text-danger text-center mt-3">
+        Selecciones un animal
+      </h2>
+    }
   </form>
 </div>

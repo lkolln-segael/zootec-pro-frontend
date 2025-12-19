@@ -1,65 +1,53 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      @for(field of fields();track $index){
-      <th scope="col">{{ field.toUpperCase() }}</th>
+<div class="table-container">
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        @for(field of fields(); track $index){
+          <th>{{ field.toUpperCase() }}</th>
+        }
+        <th class="text-center">ACCIONES</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(animal of animales(); track animal.id; let i = $index){
+      <tr>
+        <td data-label="#">{{ i + 1 }}</td>
+        <td data-label="ID">{{ animal.id }}</td>
+        <td data-label="DESCRIPCIÓN">{{ animal.descripcion }}</td>
+        <td data-label="CÓDIGO">{{ animal.codigo }}</td>
+        <td data-label="I. ELECTRÓNICO">{{ animal.identificadorElectronico }}</td>
+        <td data-label="PROPÓSITO">{{ animal.proposito }}</td>
+        <td data-label="COLOR">{{ animal.color }}</td>
+        <td data-label="FECHA NAC.">{{ animal.fechaNacimiento }}</td>
+        <td data-label="OBSERVACIONES">{{ animal.observaciones }}</td>
+        <td data-label="GÉNERO">
+          <span class="badge" [class]="animal.genero ? 'macho' : 'hembra'">
+            {{ animal.genero ? "MACHO" : "HEMBRA" }}
+          </span>
+        </td>
+        <td data-label="TIPO">{{ animal.tipoAnimal.nombre }}</td>
+        <td class="actions-cell">
+          <div class="btn-group-responsive">
+            <app-desarrollo-component [id]="animal.id + '-desarrollo'" [desarrollos]="animal.desarrollosCrecimiento">
+              <button class="btn btn-sm btn-outline-success" [attr.data-bs-target]="'#'+animal.id + '-desarrollo'" data-bs-toggle="modal">
+                Desarrollo
+              </button>
+            </app-desarrollo-component>
+
+            <app-reproduccion [animalId]="animal.id">
+              <button class="btn btn-sm btn-outline-info" [attr.data-bs-target]="'#'+animal.id + '-reproduccion'" data-bs-toggle="modal">
+                Reproducción
+              </button>
+            </app-reproduccion>
+
+            <button class="btn btn-sm btn-outline-danger">
+              Genealogía
+            </button>
+          </div>
+        </td>
+      </tr>
       }
-      <th scope="col">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for(animal of animales(); track animal.id){
-    <tr>
-      <th scope="col">
-          {{ $index + 1 }}
-      </th>
-      <th scope="col">
-          {{ animal.id }}
-      </th>
-      <th scope="col">
-          {{ animal.descripcion }}
-      </th>
-      <th scope="col">
-          {{ animal.codigo }}
-      </th>
-      <th scope="col">
-          {{ animal.identificadorElectronico}}
-      </th>
-      <th scope="col">
-          {{ animal.proposito }}
-      </th>
-      <th scope="col">
-          {{ animal.color }}
-      </th>
-      <th scope="col">
-          {{ animal.fechaNacimiento }}
-      </th>
-      <th scope="col">
-          {{ animal.observaciones }}
-      </th>
-      <th scope="col">
-          {{ animal.genero? "MACHO" : "HEMBRA" }}
-      </th>
-      <th scope="col">
-          {{ animal.tipoAnimal.nombre }}
-      </th>
-      <th scope="col">
-          <app-desarrollo-component [id]="animal.id + '-desarrollo'" [desarrollos]="animal.desarrollosCrecimiento">
-            <button class="btn btn-outline-success" [attr.data-bs-target]="'#'+animal.id + '-desarrollo'" data-bs-toggle="modal">
-              Ver desarrollo
-            </button>
-          </app-desarrollo-component>
-          <app-reproduccion [animalId]="animal.id">
-            <button class="btn btn-outline-info" [attr.data-bs-target]="'#'+animal.id + '-reproduccion'" data-bs-toggle="modal">
-              Ver reproduccion
-            </button>
-          </app-reproduccion>
-          <button class="btn btn-outline-danger ms-2">
-            Ver arbol genealogico
-          </button>
-      </th>
-    </tr>
-    }
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>

@@ -1,10 +1,11 @@
 import { EnfermedadService } from '@/service/enfermedad.service';
 import { Enfermedad } from '@/types/enfermedad.type';
+import { DatePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 
 @Component({
   selector: 'app-enfermedades',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './enfermedades.html',
   styleUrl: './enfermedades.css',
 })

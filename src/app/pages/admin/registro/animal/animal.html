@@ -91,7 +91,7 @@
       <input type="text" class="form-control" id="condicionCorporal" [(ngModel)]="animalForm().condicionCorporal" [ngModelOptions]="{standalone:true}">
     </div>
     <div class="row">
-      <button class="btn btn-primary" type="submit">
+      <button [disabled]="uploading()" class="btn btn-primary" type="submit">
         Registrar animal
       </button>
     </div>

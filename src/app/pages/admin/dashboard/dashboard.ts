@@ -43,7 +43,7 @@ export class Dashboard {
     const leche = this.producciones()
       .filter(p => new Date(año, mes, 1) < new Date(p.fechaRegistro)
         && new Date(p.fechaRegistro) < new Date(año + (1 + mes) / 12, (mes + 1) % 12, 1))
-      .map((p) => p.pesoLeche)
+      .map((p) => p.volumen)
       .reduce((acc, p) => acc += p, 0)
     return `${leche}L`;
   })
@@ -54,13 +54,13 @@ export class Dashboard {
     const lecheComparacion = this.producciones()
       .filter(p => new Date(año, mes, 1) < new Date(p.fechaRegistro)
         && new Date(p.fechaRegistro) < new Date(año + (1 + mes) / 12, (mes + 1) % 12, 1))
-      .map((p) => p.pesoLeche)
+      .map((p) => p.volumen)
       .reduce((acc, p) => acc += p, 0)
     mes = mes - 1 != 0 ? mes - 1 : 12
     const lecheComparacionMesAnterior = this.producciones()
       .filter(p => new Date(año, mes, 1) < new Date(p.fechaRegistro)
         && new Date(p.fechaRegistro) < new Date(año + (1 + mes) / 12, (mes + 1) % 12, 1))
-      .map(p => p.pesoLeche)
+      .map(p => p.volumen)
       .reduce((acc, p) => acc += p, 0)
     return `${100 * (lecheComparacion - lecheComparacionMesAnterior + 1) / (lecheComparacionMesAnterior + 1)}% con respecto al mes anterior`
   })
@@ -132,7 +132,7 @@ export class Dashboard {
       const fechaRegistro = new Date(produccion.fechaRegistro)
       if (fechaRegistro.getFullYear() === año) {
         let value = produccionesCount[fechaRegistro.getMonth()]
-        produccionesCount[fechaRegistro.getMonth()] = !Number.isFinite(value) ? produccion.pesoLeche : value + produccion.pesoLeche
+        produccionesCount[fechaRegistro.getMonth()] = !Number.isFinite(value) ? produccion.volumen : value + produccion.volumen
       }
     }
     return produccionesCount

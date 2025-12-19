@@ -1,16 +1,17 @@
 import { AnimalService } from '@/service/animal.service';
 import { Component, inject, signal } from '@angular/core';
 import { Produccion as ProduccionModel } from '@/types/animal.type';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-produccion',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './produccion.html',
   styleUrl: './produccion.css',
 })
 export class Produccion {
   fields = signal([
-    "Animal", "Peso", "Urea", "Aflatoxinas", "Ph", "Fecha de registro"
+    "Animal", "Volumen", "Urea", "Aflatoxinas", "Ph", "Fecha de registro"
   ]).asReadonly()
 
   producciones = signal<ProduccionModel[]>([])

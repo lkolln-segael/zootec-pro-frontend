@@ -24,6 +24,14 @@ export const routes: Routes = [
     loadChildren: () => import("@/routes/admin.routes").then(c => c.ADMIN_ROUTES)
   },
   {
+    path: "veterinario",
+    loadChildren: () => import("@/routes/veterinario.routes").then(c => c.VETERINARIO_ROUTES)
+  },
+  {
+    path: "operario",
+    loadChildren: () => import("@/routes/operario.routes").then(c => c.OPERARIO_ROUTES)
+  },
+  {
     path: "establos",
     component: EstablosPage
   },

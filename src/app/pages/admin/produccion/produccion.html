@@ -1,37 +1,31 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      @for(field of fields(); track $index){
-      <th scope="col">{{ field }}</th>
+<div class="production-container">
+  <table class="production-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        @for(field of fields(); track $index){
+          <th>{{ field }}</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for(p of producciones(); track p.id; let i = $index){
+      <tr>
+        <td data-label="#">{{ i + 1 }}</td>
+        <td data-label="Animal" class="animal-tag">{{ p.animal.codigo }}</td>
+        <td data-label="Peso Leche" class="text-numeric">
+          <strong>{{ p.volumen }}</strong> <small>L/m3</small>
+        </td>
+        <td data-label="Urea">{{ p.ureaLeche }} <small>mg/dL</small></td>
+        <td data-label="Aflatoxinas">{{ p.aflatoxinas }} <small>ppb</small></td>
+        <td data-label="pH" class="ph-cell">
+          <span class="ph-indicator" [style.background-color]="p.phLeche < 6.5 ? '#f8d7da' : '#d4edda'">
+            {{ p.phLeche }}
+          </span>
+        </td>
+        <td data-label="Fecha">{{ p.fechaRegistro | date:'dd/MM/yyyy' }}</td>
+      </tr>
       }
-    </tr>
-  </thead>
-  <tbody>
-    @for(produccion of producciones();track produccion.id){
-    <tr>
-      <th scope="col">
-        {{ $index + 1 }}
-      </th>
-      <th scope="col">
-        {{ produccion.animal.codigo }}
-      </th>
-      <th scope="col">
-        {{ produccion.pesoLeche }}
-      </th>
-      <th scope="col">
-        {{ produccion.ureaLeche }}
-      </th>
-      <th scope="col">
-        {{ produccion.aflatoxinas }}
-      </th>
-      <th scope="col">
-        {{ produccion.phLeche }}
-      </th>
-      <th scope="col">
-        {{ produccion.fechaRegistro }}
-      </th>
-    </tr>
-    }
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>

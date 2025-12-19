@@ -2,6 +2,7 @@ import { Component, computed, inject, model, signal } from '@angular/core';
 import { SearchAutocomplete } from "@/components/atomics/search-autocomplete/search-autocomplete";
 import { AnimalService } from '@/service/animal.service';
 import { Animal, DesarrolloCrecimiento, DesarrolloCrecimientoForm } from '@/types/animal.type';
+import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -12,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class Crecimiento {
   animalService = inject(AnimalService)
-
+  toastrService = inject(ToastrService)
   animales = signal<Animal[]>([])
   desarrollo = model<DesarrolloCrecimientoForm>({
     estado: '',
@@ -25,6 +26,7 @@ export class Crecimiento {
   })
 
   animalSelectedId = signal("")
+  uploading = signal(false)
 
   suggestions = computed(() => {
     return this.animales().map(a => a.codigo)
@@ -51,6 +53,10 @@ export class Crecimiento {
   }
 
   registrarCrecimiento() {
+    if (!this.animalSelectedId()) {
+      this.toastrService.error("Animal no seleccionado. (Dele click en guardar)")
+    }
+    this.uploading.set(true)
     this.desarrollo.update(value => {
       value.animalId = this.animalSelectedId()
       return value
@@ -59,6 +65,8 @@ export class Crecimiento {
       .subscribe({
         next: (res) => {
           console.log(res.data)
+          this.uploading.set(false)
+          this.toastrService.success(res.data)
         }
       })
   }

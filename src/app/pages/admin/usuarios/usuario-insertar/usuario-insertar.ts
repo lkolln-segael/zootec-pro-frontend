@@ -1,7 +1,9 @@
 import { UserService } from '@/service/user.service';
+import { ApiResponse } from '@/types/api.response';
 import { Rol, UsuarioForm } from '@/types/usuario.type';
 import { Component, inject, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-usuario-insertar',
@@ -20,6 +22,9 @@ export class UsuarioInsertar {
   roles = signal<Rol[]>([])
 
   private readonly userService = inject(UserService)
+  private readonly toastrService = inject(ToastrService)
+
+  uploading = signal(false)
 
   ngOnInit() {
     this.userService.getRoles()
@@ -35,10 +40,16 @@ export class UsuarioInsertar {
     if (!establoId) {
       return
     }
+    this.usuarioForm.update(value => {
+      value.contraseña = value.password!
+      return value
+    })
+    this.uploading.set(true)
     this.userService.insertTrabajador(this.usuarioForm(), establoId)
       .subscribe({
-        next: (res: string) => {
-          console.log(res)
+        next: (res: ApiResponse<string>) => {
+          this.uploading.set(false)
+          this.toastrService.success(res.message)
         }
       })
   }

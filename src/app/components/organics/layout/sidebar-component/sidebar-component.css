@@ -7,6 +7,19 @@
   position: fixed;
   left: 0;
   top: 0;
+  overflow-y: auto;
+  /* Habilita el scroll vertical */
+  overflow-x: hidden;
+  /* Evita scroll horizontal innecesario */
+
+  /* Scrollbar estético para Chrome/Safari/Edge */
+  scrollbar-width: thin;
+  /* Firefox */
+  scrollbar-color: #ccc transparent;
+  /* Firefox */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .sidebar-header {
@@ -59,4 +72,117 @@
 
 .nav-icon {
   color: black;
+}
+
+
+/* Responsive Styles */
+@media screen and (max-width: 1024px) {
+  #sidebar-container {
+    width: 220px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #sidebar-container {
+    width: 70px;
+    min-width: 70px;
+  }
+
+  .sidebar-header h1,
+  .section h4,
+  .nav-link span {
+    display: none;
+  }
+
+  .sidebar-header {
+    padding: 20px 10px;
+  }
+
+  .sidebar-header .logo {
+    font-size: 2rem;
+    margin-bottom: 0;
+  }
+
+  .nav-link {
+    justify-content: center;
+    padding: 15px 10px;
+  }
+
+  .nav-icon {
+    margin-right: 0;
+    font-size: 1.3rem;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    border-left: none;
+    border-right: 3px solid #4fc3f7;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #sidebar-container {
+    position: fixed;
+    left: -100%;
+    z-index: 1000;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  }
+
+  #sidebar-container.mobile-open {
+    left: 0;
+  }
+
+  /* Botón para abrir/cerrar sidebar en móvil */
+  .mobile-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 999;
+    background: #283593;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  /* Overlay para cerrar sidebar */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .sidebar-overlay.active {
+    display: block;
+  }
+}
+
+/* Animación suave para el texto */
+.nav-link span {
+  transition: opacity 0.3s ease;
+}
+
+/* Scrollbar personalizado */
+.sidebar-nav::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }

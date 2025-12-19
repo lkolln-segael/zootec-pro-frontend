@@ -3,6 +3,7 @@ import { SearchAutocomplete } from "@/components/atomics/search-autocomplete/sea
 import { AnimalService } from '@/service/animal.service';
 import { Animal, ProduccionForm } from '@/types/animal.type';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-produccion',
@@ -12,14 +13,19 @@ import { FormsModule } from '@angular/forms';
 })
 export class Produccion {
   animalService = inject(AnimalService)
+  toastrService = inject(ToastrService)
+
   animales = signal<Animal[]>([])
   animalSelectedId = signal("")
 
+  uploading = signal(false)
+
+
   produccion = model<ProduccionForm>({
     animalId: '',
-    pesoLeche: 0,
-    phLeche: '',
-    ureaLeche: '',
+    volumen: 0,
+    phLeche: 0,
+    ureaLeche: 0,
     fechaRegistro: '',
     aflatoxinas: 0
   })
@@ -52,13 +58,15 @@ export class Produccion {
 
 
   registrarProduccion() {
+    this.uploading.set(true)
     this.produccion.update(value => {
       value.animalId = this.animalSelectedId()
       return value
     })
     this.animalService.insertProduccion(this.produccion()).subscribe({
       next: (res) => {
-        console.log(res.data)
+        this.uploading.set(false)
+        this.toastrService.success(res.message)
       }
     })
   }

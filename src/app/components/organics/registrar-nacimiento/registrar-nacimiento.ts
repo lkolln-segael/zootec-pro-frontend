@@ -1,5 +1,6 @@
 import { ReproduccionService } from '@/service/reproduccion.service';
 import { Component, inject, input, signal } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registrar-nacimiento',
@@ -13,13 +14,17 @@ export class RegistrarNacimiento {
   numero = signal<string>("")
 
   private reproduccionService = inject(ReproduccionService)
+  private toastrService = inject(ToastrService)
 
+  uploading = signal(false)
 
   uploadNacimiento() {
+    this.uploading.set(true)
     this.reproduccionService.insertReproduccionParto(this.numero(), this.animalId())
       .subscribe({
         next: (res) => {
-          console.log(res.message)
+          this.uploading.set(false)
+          this.toastrService.success(res.message)
         }
       })
   }

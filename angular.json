@@ -34,7 +34,8 @@
               "src/styles.css",
               "public/css/animate.min.css",
               "public/css/bootstrap.min.css",
-              "public/css/templatemo-style.css"
+              "public/css/templatemo-style.css",
+              "node_modules/ngx-toastr/toastr.css"
             ]
           },
           "configurations": {

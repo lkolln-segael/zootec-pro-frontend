@@ -2,6 +2,7 @@ import { AnimalService } from '@/service/animal.service';
 import { AnimalSimplified, TipoAnimal } from '@/types/animal.type';
 import { Component, inject, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-animal',
@@ -18,6 +19,8 @@ export class Animal {
   private establoId: string | null = ""
 
   private animalService = inject(AnimalService)
+  private toastrService = inject(ToastrService)
+  uploading = signal(false)
 
   constructor() {
     this.establoId = localStorage.getItem("establoId")
@@ -32,6 +35,7 @@ export class Animal {
   }
 
   loadAnimal() {
+    this.uploading.set(true)
     this.animalForm.update(value => {
       value.genero = this.genero() === "HEMBRA"
       return value
@@ -40,6 +44,8 @@ export class Animal {
       .subscribe({
         next: (res) => {
           console.log(res.message)
+          this.uploading.set(false)
+          this.toastrService.success(res.message)
         }
       })
   }

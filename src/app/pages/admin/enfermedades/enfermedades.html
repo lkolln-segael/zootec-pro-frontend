@@ -1,42 +1,46 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      @for(field of fields(); track $index){
-        <th scope="col">{{ field }}</th>
-      }
-    </tr>
-  </thead>
-  <tbody>
-    @for(enfermedad of enfermedades();track enfermedad.id){
-    <tr>
-      <th scope="col">
-          {{ $index + 1 }}
-      </th>
-      <th scope="col">
+<div class="table-card-container">
+  <table class="modern-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        @for(field of fields(); track $index){
+          <th>{{ field }}</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for(enfermedad of enfermedades(); track enfermedad.id; let i = $index){
+      <tr>
+        <td data-label="#">{{ i + 1 }}</td>
+        <td data-label="Nombre" class="fw-bold text-primary">
           {{ enfermedad.nombre }}
-      </th>
-      <th scope="col">
-          <ul>
+        </td>
+        <td data-label="Tratamientos">
+          <ul class="list-unstyled custom-list">
             @for(tratamiento of enfermedad.tratamientos; track tratamiento.id){
-              <li> {{ tratamiento.nombre }}</li>
+              <li><span class="dot treatment"></span> {{ tratamiento.nombre }}</li>
+            } @empty {
+              <li class="text-muted small">Sin tratamientos</li>
             }
           </ul>
-      </th>
-      <th scope="col">
-          <ul>
+        </td>
+        <td data-label="Síntomas">
+          <ul class="list-unstyled custom-list">
             @for(sintoma of enfermedad.tipoEnfermedad.sintomas; track sintoma.id){
-              <li> {{ sintoma.nombre }}</li>
+              <li><span class="dot symptom"></span> {{ sintoma.nombre }}</li>
+            } @empty {
+              <li class="text-muted small">Sin síntomas</li>
             }
           </ul>
-      </th>
-      <th scope="col">
-          {{ enfermedad.animal.codigo }}
-      </th>
-      <th scope="col">
-          {{ enfermedad.fechaRegistro }}
-      </th>
-    </tr>
-    }
-  </tbody>
-</table>
+        </td>
+        <td data-label="Animal">
+          <span class="animal-code">{{ enfermedad.animal.codigo }}</span>
+        </td>
+        <td data-label="Fecha">
+          {{ enfermedad.fechaRegistro | date:'dd/MM/yyyy' }}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
